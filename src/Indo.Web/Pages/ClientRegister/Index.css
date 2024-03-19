@@ -1,0 +1,8 @@
+﻿.star {
+    color: red;
+}
+#nameError, #nameValidation, #emailError, #emailValidation, #phoneNumberError,
+#phoneNumberValidation, #AddressError, #AddressValidation, #CountryError, #CountryValidation,
+#StateError, #StateValidation, #CityError, #CityValidation, #ZipError, #ZipValidation, #PasswordError, #PasswordValidation, #cpasswordError, #cpasswordValidation {
+    color: red;
+}

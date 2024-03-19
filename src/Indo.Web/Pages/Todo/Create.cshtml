@@ -1,0 +1,60 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Todo.CreateModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+<form asp-page="/Todo/Create">
+    <abp-modal>
+        <abp-modal-header title="@l["New"].Value @l["Menu:UtilitiesTransactionTodo"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Todo.Name"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Todo.Description"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Todo.Location"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <div class="form-group">
+                            <label asp-for="Todo.StartTime"></label>
+                            <span>*</span>
+                            <input asp-for="Todo.StartTime" />
+                            <span asp-validation-for="Todo.StartTime"></span>
+                        </div>
+                    </abp-column>
+                    <abp-column>
+                        <div class="form-group">
+                            <label asp-for="Todo.EndTime"></label>
+                            <span>*</span>
+                            <input asp-for="Todo.EndTime" />
+                            <span asp-validation-for="Todo.EndTime"></span>
+                        </div>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Todo.IsDone"></abp-input>
+                    </abp-column>
+                </abp-row>
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

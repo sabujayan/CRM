@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Indo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Indo.Domain\Indo.Domain.csproj" />
+    <ProjectReference Include="..\Indo.Application.Contracts\Indo.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
+    <PackageReference Include="Volo.Abp.Account.Application" Version="4.3.2" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="4.3.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="4.3.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="4.3.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="4.3.2" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="4.3.2" />
+  </ItemGroup>
+
+</Project>

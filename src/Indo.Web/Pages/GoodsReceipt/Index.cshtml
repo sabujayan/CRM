@@ -1,0 +1,21 @@
+﻿@page
+
+@model Indo.Web.Pages.GoodsReceipt.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:TransferTransactionGoodsReceipt"];
+}
+@section styles{
+    <abp-style src="/Pages/GoodsReceipt/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/GoodsReceipt/Index.js" />
+}
+<div class="row">
+    <div class="col-12">
+        @(await Component.InvokeAsync<SpinnerViewComponent>())
+        <div id="Grid"></div>
+    </div>
+</div>

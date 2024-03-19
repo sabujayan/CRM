@@ -1,0 +1,37 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Resource.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Resource"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Resource</h3>
+            <p>
+                Resource is something valuable which is shared and can be booked.
+            </p>
+            <p>
+                This module provide feature to manage resources data.
+            </p>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Add</b>. Show modal screen to add new data.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data.</li>
+                <li><b>Delete</b>. Show modal screen to delete selected data. Data that already used on transaction can not deleted.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Name</b>. Name of resource.</li>
+                <li><b>Description</b>. Additional information regarding the resource.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

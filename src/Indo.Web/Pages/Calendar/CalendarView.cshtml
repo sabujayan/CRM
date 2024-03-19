@@ -1,0 +1,20 @@
+﻿@page
+@model Indo.Web.Pages.Calendar.CalendarViewModel
+@{
+    Layout = null;
+}
+<abp-modal centered="true" size="Large" static="true">
+    <abp-modal-header title="Calendars"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <abp-row>
+                <abp-column>
+                    <div id="Schedule"></div>
+                </abp-column>
+            </abp-row>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

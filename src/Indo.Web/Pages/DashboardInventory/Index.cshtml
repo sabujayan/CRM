@@ -1,0 +1,269 @@
+﻿@page
+@model Indo.Web.Pages.DashboardInventory.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:DashboardInventory"];
+}
+@section scripts {
+    <!-- amchart js -->
+    <script src="~/themes/plugins/amchart/js/amcharts.js"></script>
+    <script src="~/themes/plugins/amchart/js/gauge.js"></script>
+    <script src="~/themes/plugins/amchart/js/serial.js"></script>
+    <script src="~/themes/plugins/amchart/js/light.js"></script>
+    <script src="~/themes/plugins/amchart/js/pie.min.js"></script>
+    <script src="~/themes/plugins/amchart/js/ammap.min.js"></script>
+    <script src="~/themes/plugins/amchart/js/usaLow.js"></script>
+    <script src="~/themes/plugins/amchart/js/radar.js"></script>
+    <script src="~/themes/plugins/amchart/js/worldLow.js"></script>
+    <!-- Float Chart js -->
+    <script src="~/themes/plugins/flot/js/jquery.flot.js"></script>
+    <script src="~/themes/plugins/flot/js/jquery.flot.categories.js"></script>
+    <script src="~/themes/plugins/flot/js/curvedLines.js"></script>
+    <script src="~/themes/plugins/flot/js/jquery.flot.tooltip.min.js"></script>
+    <!-- dashboard-custom js -->
+    <abp-script src="/Pages/DashboardInventory/Index.js" />
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <!-- [ bitcoin-wallet section ] start-->
+            <div class="col-md-6 col-xl-4">
+                <div class="card theme-bg bitcoin-wallet">
+                    <div class="card-block">
+                        <h5 class="text-white mb-2">COGS</h5>
+                        <h2 class="text-white mb-2 f-w-300">@Model.Company.CurrencyName <br /> @($"{(Model.TotalCOGS).ToString("##,##")}")</h2>
+                        <span class="text-white d-block">From purchase price</span>
+                        <i class="fas fa-tag f-70 text-white"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card theme-bg2 bitcoin-wallet">
+                    <div class="card-block">
+                        <h5 class="text-white mb-2">Sales</h5>
+                        <h2 class="text-white mb-2 f-w-300">@Model.Company.CurrencyName <br /> @($"{(Model.TotalSales).ToString("##,##")}")</h2>
+                        <span class="text-white d-block">From retail price</span>
+                        <i class="fas fa-shopping-cart f-70 text-white"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card bg-c-blue bitcoin-wallet">
+                    <div class="card-block">
+                        <h5 class="text-white mb-2">Margin</h5>
+                        <h2 class="text-white mb-2 f-w-300">@Model.Company.CurrencyName <br /> @($"{(Model.TotalMargin).ToString("##,##")}")</h2>
+                        <span class="text-white d-block">Revenue - Cost</span>
+                        <i class="fas fa-chart-line f-70 text-white"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- [ bitcoin-wallet section ] end-->
+            <!-- [ statistic-line chat ] start -->
+            <div class="col-xl-8 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Purchase Qty vs Sales Qty</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                </button>
+                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                    <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <div id="line-area2" class="lineAreaDashboard" style="height:415px;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ statistic-line chat ] end -->
+            <div class="col-md-6 col-xl-4">
+                <div class="card theme-bg earning-date">
+                    <div class="card-header borderless">
+                        <h5 class="text-white">Stock Valuations (@Model.Company.CurrencyName)</h5>
+                    </div>
+                    <div class="card-block">
+                        <div class="bd-example bd-example-tabs">
+                            <div class="tab-content" id="tabContent-pills">
+                                @{
+                                    var index = 0;
+                                    var amountBefore = 0f;
+                                    foreach (var item in Model.Dashboard.MonthlyValuations)
+                                    {
+                                        var icon = amountBefore > item.Amount ? "icon-arrow-down" : "icon-arrow-up";
+                                        if (index == 0)
+                                        {
+                                            <div class="tab-pane fade show active" id="earnings-@item.MonthName" role="tabpanel" aria-labelledby="pills-earnings-@item.MonthName">
+                                                <h2 class="text-white mb-3 f-w-300">@item.Amount.ToString("##,##")<i class="feather @icon"></i></h2>
+                                                <span class="text-white mb-4 d-block">TOTAL STOCK VALUATIONS</span>
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="tab-pane fade" id="earnings-@item.MonthName" role="tabpanel" aria-labelledby="pills-earnings-@item.MonthName">
+                                                <h2 class="text-white mb-3 f-w-300">@item.Amount.ToString("##,##")<i class="feather @icon"></i></h2>
+                                                <span class="text-white mb-4 d-block">TOTAL STOCK VALUATIONS</span>
+                                            </div>
+
+                                        }
+                                        index++;
+                                        amountBefore = item.Amount;
+                                    }
+                                }
+                            </div>
+                            <ul class="nav nav-pills align-items-center justify-content-center" id="pills-tab" role="tablist">
+                                @{
+                                    var index2 = 0;
+                                    foreach (var item in Model.Dashboard.MonthlyValuations)
+                                    {
+                                        if (index2 == 0)
+                                        {
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="pills-earnings-@item.MonthName" data-toggle="pill" href="#earnings-@item.MonthName" role="tab" aria-controls="earnings-@item.MonthName" aria-selected="true">@item.MonthName</a>
+                                            </li>
+
+                                        }
+                                        else
+                                        {
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-earnings-@item.MonthName" data-toggle="pill" href="#earnings-@item.MonthName" role="tab" aria-controls="earnings-@item.MonthName" aria-selected="false">@item.MonthName</a>
+                                            </li>
+                                        }
+                                        index2++;
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card theme-bg2">
+                    <div class="card-block">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-auto">
+                                <img src="~/themes/images/widget/shape6.png" alt="activity-user">
+                            </div>
+                            <div class="col">
+                                <h2 class="text-white f-w-300">@Model.Dashboard.TotalValuation.ToString("##,##")</h2>
+                                <h5 class="text-white">Current Stock Valuation (@Model.Company.CurrencyName)</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6">
+                <div class="card code-table">
+                    <div class="card-header">
+                        <h5>Top Five High Performer</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                </button>
+                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                    <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-block pb-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Sales Quantity</th>
+                                        <th>Unit of Measure</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Dashboard.HighPerformer)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <h6 class="mb-1">@item.ProductName</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-1">@item.Quantity</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="m-b-0"><a href="#!" class="label theme-bg f-12 text-white">@item.UomName</a></h6>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6">
+                <div class="card code-table">
+                    <div class="card-header">
+                        <h5>Top Five Low Performer</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                </button>
+                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                    <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-block pb-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Sales Quantity</th>
+                                        <th>Unit of Measure</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Dashboard.LowPerformer)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <h6 class="mb-1">@item.ProductName</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-1">@item.Quantity</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="m-b-0"><a href="#!" class="label theme-bg2 f-12 text-white">@item.UomName</a></h6>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ Main Content ] end -->
+    </div>
+</div>

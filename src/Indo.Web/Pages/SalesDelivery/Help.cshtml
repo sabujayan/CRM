@@ -1,0 +1,68 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.SalesDelivery.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Sales Delivery"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+
+            <h3>Sales Delivery</h3>
+            <p>
+                Sales delivery is a process of moving product out from a warehouse known as outbound. The product is send out from internal warehouse to customer. The document automatically generated from sales order toolbar: Generate confirm delivery or Generate draft delivery.
+            </p>
+            <p>
+                This module provide feature to manage sales delivery.
+            </p>
+            <p>
+                <b>Note: </b> Sales order will generate sales delivery. After the sales order is confirm, there should be sales delivery to process the shipment of product from warehouse to customer.
+            </p>
+            <h4>Document Status</h4>
+            <ul>
+                <li><b>Draft</b>.</li> Default status for the newly created transaction (Depending the sales order toolbar action selected: Generate confirm or Generate draft). Transaction can be update and deleted.
+                <li><b>Confirm</b>.</li> Next status above Draft which is used for confirmed transaction. Transaction can not updated and can not deleted.
+            </ul>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data. Only active for draft transaction.</li>
+                <li><b>Delete</b>. Show confirmation dialog to delete selected data. Only active for draft transaction.</li>
+                <li><b>Details</b>. Navigate to detail view page for selected data.</li>
+                <li><b>Confirm Delivery</b>. Show modal confirmation to confirm selected data</li>
+                <li><b>Return Delivery</b>. Show modal confirmation to return selected data. This will generate return transaction with confirm status.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Number</b>. Autogenerate specific number sequence based on module.</li>
+                <li><b>Description</b>. Additional information for the transaction.</li>
+                <li><b>Delivery Date</b>. Date of delivery.</li>
+                <li><b>Sales Order</b>. Sales order as origin of transaction of this sales delivery.</li>
+            </ul>
+            <h3>Sales Delivery Detail</h3>
+            <p>
+                Sales delivery detail is a page that show detail view of the sales delivery. This page provide feature to manage items. Only draft transaction can be manage for addition, update and deletion.
+            </p>
+            <h4>Button Actions</h4>
+            <ul>
+                <li><b>Plus New Button</b>. Show modal screen to add new data.</li>
+                <li><b>List Button</b>. Navigate back to main grid data.</li>
+                <li><b>Print Button</b>. Navigate to windows print option (save as pdf, or print the detail view).</li>
+            </ul>
+            <h4>Toolbar Actions</h4>
+            <li><b>Edit</b>. Show modal screen to update selected data. Only active for draft transaction.</li>
+            <li><b>Delete</b>. Show confirmation dialog to delete selected data. Only active for draft transaction.</li>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Product</b>. Detail items as physical product that lookup to the product master data.</li>
+                <li><b>Quantity</b>. Quantity of the delivered product.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

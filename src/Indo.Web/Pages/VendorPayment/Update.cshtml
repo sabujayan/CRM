@@ -1,0 +1,49 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.VendorPayment.UpdateModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+<form id="form" asp-page="/VendorPayment/Update">
+    <abp-modal>
+        <abp-modal-header title="@l["Update"].Value @l["Menu:FinanceTransactionVendorPayment"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="VendorPayment.Id"></abp-input>
+                        <abp-input asp-for="VendorPayment.Number"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="VendorPayment.Description"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="VendorPayment.PaymentDate"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-select asp-for="VendorPayment.VendorId"></abp-select>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="VendorPayment.Amount"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-select asp-for="VendorPayment.CashAndBankId"></abp-select>
+                    </abp-column>
+                </abp-row>
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

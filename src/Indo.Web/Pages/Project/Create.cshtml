@@ -1,0 +1,54 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Project.CreateModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+<form asp-page="/Project/Create">
+    <abp-modal>
+        <abp-modal-header title="@l["New"].Value @l["Menu:Projects"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Project.Name"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-select asp-for="Project.ClientsId"></abp-select>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="Project.Estimate"></abp-input>
+                    </abp-column>
+                </abp-row>
+
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Project.StartDate"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="Project.EndDate"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Project.Notes"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Project.Technology"></abp-input>
+                    </abp-column>
+                </abp-row>
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit" id="btnsave"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

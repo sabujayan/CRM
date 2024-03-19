@@ -1,0 +1,40 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Expense.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Expense"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Expense</h3>
+            <p>
+                Expense is the cost required for something, the money spent for something, is an outflow of money.
+            </p>
+            <p>
+                This module provide feature to manage expenses data.
+            </p>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Add</b>. Show modal screen to add new data.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data.</li>
+                <li><b>Delete</b>. Show modal screen to delete selected data. Data that already used on transaction can not deleted.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Number</b>. Expense number.</li>
+                <li><b>Description</b>. Additional information regarding the expense.</li>
+                <li><b>Expense Date</b>. The date when the expense occur.</li>
+                <li><b>Employee</b>. Staff or person in charge who use or take responsibility about the expense.</li>
+                <li><b>Expense Type</b>. Type of expense.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

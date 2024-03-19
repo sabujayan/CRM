@@ -1,0 +1,47 @@
+﻿
+.pcoded-main-container {
+    margin: 0 !important;
+    margin-left: 264px !important;
+}
+#imgContainer {
+    position: relative;
+}
+#Leads_photo {
+    width: 60px;
+    position: relative;
+    left: 0;
+    top: 0
+}
+#companyError, #companyValidation, #firstNameError, #firstNameValidation, #lastNamerror, #lastNamelValidation {
+    display: none;
+    color: red;
+}
+
+/*Table css*/
+table {
+    caption-side: bottom !important;
+    border-collapse: collapse !important;
+}
+.table.table-bordered {
+    border: 1px solid #eaeaea !important;
+}
+.table tr:first-child, .table th:first-child, .table td:first-child {
+    padding-left: 0.75rem !important;
+}
+.table th{
+    background:#ededed;
+    border-right:1px solid #ccc;
+}
+    .table th:nth-last-of-type(1) {
+        border-right: none;
+    }
+.table td {
+    background: #fff;
+    border-bottom:1px dashed #ccc;
+}
+.page-list {
+    display: inline-block !important;
+}
+.float-right.pagination{
+    display:inline-block !important;
+}

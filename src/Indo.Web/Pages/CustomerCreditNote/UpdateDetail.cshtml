@@ -1,0 +1,52 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.CustomerCreditNote.UpdateDetailModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+<form asp-page="/CustomerCreditNote/UpdateDetail">
+    <abp-modal>
+        <abp-modal-header title="@l["Update"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="CustomerCreditNoteDetail.Id"></abp-input>
+                        <abp-select asp-for="CustomerCreditNoteDetail.CustomerCreditNoteId"></abp-select>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="CustomerCreditNoteDetail.ProductName"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-select asp-for="CustomerCreditNoteDetail.UomId"></abp-select>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="CustomerCreditNoteDetail.Price"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="CustomerCreditNoteDetail.Quantity"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="CustomerCreditNoteDetail.TaxRate"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="CustomerCreditNoteDetail.DiscAmt"></abp-input>
+                    </abp-column>
+                </abp-row>
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit" disabled="@(Model.Status != Indo.CustomerCreditNotes.CustomerCreditNoteStatus.Draft)"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

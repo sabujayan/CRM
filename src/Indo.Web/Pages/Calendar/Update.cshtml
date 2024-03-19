@@ -1,0 +1,61 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Calendar.UpdateModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+<form asp-page="/Calendar/Update">
+    <abp-modal>
+        <abp-modal-header title="@l["Update"].Value @l["Menu:UtilitiesTransactionCalendar"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Calendar.Id"></abp-input>
+                        <abp-input asp-for="Calendar.Name"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Calendar.Description"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Calendar.Location"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <div class="form-group">
+                            <label asp-for="Calendar.StartTime"></label>
+                            <span>*</span>
+                            <input asp-for="Calendar.StartTime" />
+                            <span asp-validation-for="Calendar.StartTime"></span>
+                        </div>
+                    </abp-column>
+                    <abp-column>
+                        <div class="form-group">
+                            <label asp-for="Calendar.EndTime"></label>
+                            <span>*</span>
+                            <input asp-for="Calendar.EndTime" />
+                            <span asp-validation-for="Calendar.EndTime"></span>
+                        </div>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Calendar.IsDone"></abp-input>
+                    </abp-column>
+                </abp-row>
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

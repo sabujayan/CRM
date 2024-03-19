@@ -1,0 +1,44 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Tasks.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Task"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Task</h3>
+            <p>
+                Task is a piece of work to be done or undertaken. The task should be enable the convert of Lead into Customer, or existing Customer become loyal customer.
+            </p>
+            <p>
+                This module provide feature to manage tasks data.
+            </p>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Add</b>. Show modal screen to add new data.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data.</li>
+                <li><b>Delete</b>. Show modal screen to delete selected data.</li>
+                <li><b>Calendar View</b>. Manage tasks using calendar view suite.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Name</b>. Name of task.</li>
+                <li><b>Description</b>. Additional information regarding the task.</li>
+                <li><b>Location</b>. Place where the task took place.</li>
+                <li><b>StartTime</b>. When the task is starting.</li>
+                <li><b>EndTime</b>. When the task should be ending.</li>
+                <li><b>IsDone</b>. Marking the task is done or not.</li>
+                <li><b>Customer</b>. Customer related to the task.</li>
+                <li><b>Activity</b>. Specific task action taken.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

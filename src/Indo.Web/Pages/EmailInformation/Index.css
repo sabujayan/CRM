@@ -1,0 +1,169 @@
+﻿.spNoRecord {
+    color: red;
+    display: none;
+}
+#employeeNameList {
+    display: none;
+}
+.custom-shadow, .cus-shadow {
+    -webkit-box-shadow: 0 0 20px 0 rgba(76,87,125,0.2);
+    -moz-box-shadow: 0 0 20px 0 rgba(76,87,125,0.2);
+    box-shadow: 0 0 20px 0 rgba(76,87,125,0.2)
+}
+
+.has-filter {
+    position: relative
+}
+
+.action-td .btn {
+    width: auto !important;
+    padding: 12px 20px
+}
+
+select {
+    height: auto !important
+}
+
+.form-group > span {
+    color: red
+}
+
+.form-group select {
+    height: auto !important
+}
+
+.form-group > span {
+    color: red
+}
+
+.color-white {
+    color: #fff
+}
+
+.multi-input, .multi-input:focus {
+    border: none;
+    flex: 1;
+    width: 100px
+}
+
+.multi-input::placeholder {
+    color: #A1A5B7
+}
+
+.custom-selects {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center
+}
+
+.custom-selects.form-control {
+    display: flex
+}
+
+.custom-selected {
+    display: flex;
+    flex-wrap: wrap;
+    background: #fff;
+    list-style-type: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    
+}
+#employeeNameListcc {
+    border-radius: 5px
+}
+.removeicon{
+    display:inline-block;
+    cursor:pointer;
+}
+#txtMultilist {
+    border: none !important
+}
+.input_to{
+    position:relative
+}
+.cs_drop {
+    position: absolute;
+    right: 0;
+    top:0;
+    background: none !important;
+}
+.cs_drop .btn{
+    background:none !important
+}
+    .custom-selected li {
+    padding: 4px 8px;
+    position: relative;
+    border: 1px solid #E4E6EF;
+    /*border-radius: .475rem;*/
+    margin-right: 3px;
+    margin-bottom: 3px;
+    text-align: left;
+}
+.custom-sel-list-to.custom-selected li {
+    margin-right: 0px;
+    margin-bottom: 0px;
+    padding: 8px;
+}
+    .custom-selected li:hover {
+        background-color: #009EF7;
+        color:#fff;
+    }
+
+.custom-selected li span {
+    margin-left: 5px
+}
+
+.custom-sel-list {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 15px -4px rgba(160,160,245,.46);
+    -moz-box-shadow: 0 0 15px -4px rgba(160,160,245,.46);
+    box-shadow: 0 0 15px -4px rgba(160,160,245,.46)
+}
+
+.custom-sel-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgb(226,226,240);
+    transition: 0.5s
+}
+
+.custom-sel-list li:last-child {
+    border: 0
+}
+
+.custom-sel-list li:hover {
+    background-color: #009EF7;
+    color: #fff
+}
+
+.custom-sel-list li.hideitem {
+    display: none
+}
+
+
+.pcoded-main-container {
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    width: calc(100% - 264px);
+    clear: both;
+    float: unset;
+    right: 0;
+    margin-left: 264px;
+    min-height: 100vh;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}

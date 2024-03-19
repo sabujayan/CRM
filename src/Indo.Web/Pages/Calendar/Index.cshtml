@@ -1,0 +1,22 @@
+﻿@page
+@model Indo.Web.Pages.Calendar.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:UtilitiesTransactionCalendar"];
+}
+@section styles{
+    <abp-style src="/Pages/Calendar/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/Calendar/Index.js" />
+    <abp-script src="/Pages/Calendar/Create.js" />
+    <abp-script src="/Pages/Calendar/Update.js" />
+}
+<div class="row">
+    <div class="col-12">
+        @(await Component.InvokeAsync<SpinnerViewComponent>())
+        <div id="Grid"></div>
+    </div>
+</div>

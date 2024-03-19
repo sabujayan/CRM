@@ -1,0 +1,21 @@
+﻿@page
+
+@model Indo.Web.Pages.ProjectOrder.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:ProjectTransactionProjectOrder"];
+}
+@section styles{
+    <abp-style src="/Pages/ProjectOrder/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/ProjectOrder/Index.js" />
+}
+<div class="row">
+    <div class="col-12">
+        @(await Component.InvokeAsync<SpinnerViewComponent>())
+        <div id="Grid"></div>
+    </div>
+</div>

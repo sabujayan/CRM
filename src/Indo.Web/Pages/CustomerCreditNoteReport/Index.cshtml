@@ -1,0 +1,20 @@
+﻿@page
+@model Indo.Web.Pages.CustomerCreditNoteReport.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:FinanceReportCustomerCreditNote"];
+}
+@section styles{
+    <abp-style src="/Pages/CustomerCreditNoteReport/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/CustomerCreditNoteReport/Index.js" />
+}
+<div class="row">
+    <div class="col-12">
+        @(await Component.InvokeAsync<SpinnerViewComponent>())
+        <div id="Grid"></div>
+    </div>
+</div>

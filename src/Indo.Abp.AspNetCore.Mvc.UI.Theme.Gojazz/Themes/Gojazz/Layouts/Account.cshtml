@@ -1,0 +1,111 @@
+﻿@using Microsoft.Extensions.Localization
+@using Microsoft.Extensions.Options
+@using Volo.Abp.AspNetCore.MultiTenancy
+@using Volo.Abp.AspNetCore.Mvc.UI.Components.LayoutHook
+@using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy.Localization
+@using Indo.Abp.AspNetCore.Mvc.UI.Theme.Gojazz.Bundling
+@using Indo.Abp.AspNetCore.Mvc.UI.Theme.Gojazz.Themes.Gojazz.Components.Header
+@using Indo.Abp.AspNetCore.Mvc.UI.Theme.Gojazz.Themes.Gojazz.Components.PageAlerts
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetScripts
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetStyles
+@using Volo.Abp.MultiTenancy
+@using Volo.Abp.Localization
+@using Volo.Abp.Ui.Branding
+@inject IBrandingProvider BrandingProvider
+@inject IOptions<AbpMultiTenancyOptions> MultiTenancyOptions
+@inject ICurrentTenant CurrentTenant
+@inject IStringLocalizer<AbpUiMultiTenancyResource> MultiTenancyStringLocalizer
+@inject ITenantResolveResultAccessor TenantResolveResultAccessor
+
+@{ Layout = null;
+                var containerClass = ViewBag.FluidLayout == true ? "container-fluid" : "container"; //TODO: Better and type-safe options
+                var rtl = CultureHelper.IsRtl ? "rtl" : string.Empty; }
+
+<!DOCTYPE html>
+
+<html lang="@CultureInfo.CurrentCulture.Name">
+<head>
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.First, StandardLayouts.Account)
+
+    <title>@(ViewBag.Title == null ? BrandingProvider.AppName : ViewBag.Title)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Inventory Pro - Inventory Management System" />
+    <meta name="keywords" content="inventory, product, warehouse, stock, adjustment, purchase, sales, delivery, receipts, document, calendar" />
+    <meta name="author" content="Indotalent" />
+
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/themes/images/favicon.ico" type="image/x-icon">
+    <link href="~/themes/syncfusion/css/material.css" rel="stylesheet" />
+    <script src="~/themes/syncfusion/js/ej2.min.js"></script>
+
+
+    <abp-style-bundle name="@GojazzThemeBundles.Styles.Global" />
+    @await Component.InvokeAsync(typeof(WidgetStylesViewComponent))
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.Last, StandardLayouts.Account)
+
+
+    <link href="~/themes/css/style.css" rel="stylesheet" />
+    @await RenderSectionAsync("styles", false)
+
+</head>
+<body>
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Account)
+    <div class="auth-wrapper aut-bg-img-side cotainer-fiuid align-items-stretch">
+        <div class="row align-items-center w-100 align-items-stretch bg-white">
+            <div class="d-none d-lg-flex col-lg-8 aut-bg-img align-items-center d-flex justify-content-center">
+                <div class="col-md-8">
+                    <h1 class="text-white mb-5">Login in ABP Framework</h1>
+                    <p class="text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 align-items-stret h-100 align-items-center d-flex justify-content-center">
+                <div class=" auth-content text-center">
+                    <abp-row>
+                        <abp-column class="col mx-auto" style="max-width: 440px">
+                            @if (MultiTenancyOptions.Value.IsEnabled &&
+                        (TenantResolveResultAccessor.Result?.AppliedResolvers?.Contains(CookieTenantResolveContributor.ContributorName) == true))
+                            {
+                <div class="card shadow-sm rounded mb-3">
+                    <div class="card-body px-5">
+                        <div class="row">
+                            <div class="col">
+                                <span style="font-size: .8em;" class="text-uppercase text-muted">@MultiTenancyStringLocalizer["Tenant"]</span><br />
+                                <h6 class="m-0 d-inline-block">
+                                    @if (CurrentTenant.Id == null)
+                                    {
+                    <span>
+                        @MultiTenancyStringLocalizer["NotSelected"]
+                    </span> }
+                else
+                {
+<strong>@(CurrentTenant.Name ?? CurrentTenant.Id.Value.ToString())</strong>}
+                                </h6>
+                            </div>
+                            <div class="col-auto">
+                                <a id="AbpTenantSwitchLink" href="javascript:;" class="btn btn-sm mt-3 btn-outline-primary">@MultiTenancyStringLocalizer["Switch"]</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+                            @(await Component.InvokeAsync<PageAlertsViewComponent>())
+                            @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.First, StandardLayouts.Account)
+                            @RenderBody()
+                            @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.Last, StandardLayouts.Account)
+                        </abp-column>
+                    </abp-row>
+                </div>
+            </div>
+        </div>
+    </div>
+    <abp-script-bundle name="@GojazzThemeBundles.Scripts.Global" />
+    <script src="~/Abp/ApplicationConfigurationScript"></script>
+    <script src="~/Abp/ServiceProxyScript"></script>
+    @await RenderSectionAsync("scripts", false)
+    @await Component.InvokeAsync(typeof(WidgetScriptsViewComponent))
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.Last, StandardLayouts.Account)
+</body>
+</html>

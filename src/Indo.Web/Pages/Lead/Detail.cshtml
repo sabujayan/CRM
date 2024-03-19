@@ -1,0 +1,103 @@
+﻿@page "{id:Guid}"
+@model Indo.Web.Pages.Lead.DetailModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@using Indo.Permissions
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = $"{l["Menu:CustomerManagementTransactionLead"].Value} {Model.Customer.Name}";
+}
+@section styles{
+    <abp-style src="/Pages/Lead/Detail.css" />
+}
+@section scripts
+{
+    <abp-script src="/Pages/Lead/Detail.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@Model.Customer.Name</abp-card-title>
+                <input type="hidden" id="hfCustomerId" asp-for="Customer.Id" />
+                <input type="hidden" id="hfCustomerNumber" asp-for="Customer.Name" />
+                <input type="hidden" id="hfRootFolder" asp-for="Customer.RootFolder"/>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        @if (await AuthorizationService.IsGrantedAsync(IndoPermissions.CustomerManagement.ContactTransaction))
+                        {
+                            <li><a class="nav-link text-left active" id="v-pills-contact-tab" data-toggle="pill" href="#v-pills-contact" role="tab" aria-controls="v-pills-contact" aria-selected="true">Contact</a></li>
+                        }
+                        @if (await AuthorizationService.IsGrantedAsync(IndoPermissions.CustomerManagement.ServiceQuotationTransaction))
+                        {
+                            <li><a class="nav-link text-left" id="v-pills-proposal-tab" data-toggle="pill" href="#v-pills-proposal" role="tab" aria-controls="v-pills-proposal" aria-selected="false">Service Quotation</a></li>
+                        }
+                        @if (await AuthorizationService.IsGrantedAsync(IndoPermissions.CustomerManagement.SalesQuotationTransaction))
+                        {
+                            <li><a class="nav-link text-left" id="v-pills-estimate-tab" data-toggle="pill" href="#v-pills-estimate" role="tab" aria-controls="v-pills-estimate" aria-selected="false">Sales Quotation</a></li>
+                        }
+                        @if (await AuthorizationService.IsGrantedAsync(IndoPermissions.CustomerManagement.ExpenseTransaction))
+                        {
+                            <li><a class="nav-link text-left" id="v-pills-expense-tab" data-toggle="pill" href="#v-pills-expense" role="tab" aria-controls="v-pills-expense" aria-selected="false">Expense</a></li>
+                        }
+                        @if (await AuthorizationService.IsGrantedAsync(IndoPermissions.CustomerManagement.TaskTransaction))
+                        {
+                            <li><a class="nav-link text-left" id="v-pills-task-tab" data-toggle="pill" href="#v-pills-task" role="tab" aria-controls="v-pills-task" aria-selected="false">Task</a></li>
+                        }
+                        @if (await AuthorizationService.IsGrantedAsync(IndoPermissions.CustomerManagement.NoteTransaction))
+                        {
+                            <li><a class="nav-link text-left" id="v-pills-note-tab" data-toggle="pill" href="#v-pills-note" role="tab" aria-controls="v-pills-note" aria-selected="false">Note</a></li>
+                        }
+                        @if (await AuthorizationService.IsGrantedAsync(IndoPermissions.CustomerManagement.ImportantDateTransaction))
+                        {
+                            <li><a class="nav-link text-left" id="v-pills-date-tab" data-toggle="pill" href="#v-pills-date" role="tab" aria-controls="v-pills-date" aria-selected="false">Important Date</a></li>
+                        }
+                        @if (await AuthorizationService.IsGrantedAsync(IndoPermissions.CustomerManagement.FileManagerTransaction))
+                        {
+                            <li><a class="nav-link text-left" id="v-pills-file-tab" data-toggle="pill" href="#v-pills-file" role="tab" aria-controls="v-pills-file" aria-selected="false">File Manager</a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-md-9 col-sm-12">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-contact-tab">
+                            @await Html.PartialAsync("~/Pages/Customer/Partials/_Contact.cshtml")
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-proposal" role="tabpanel" aria-labelledby="v-pills-proposal-tab">
+                            @await Html.PartialAsync("~/Pages/Customer/Partials/_ServiceQuotation.cshtml")
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-estimate" role="tabpanel" aria-labelledby="v-pills-estimate-tab">
+                            @await Html.PartialAsync("~/Pages/Customer/Partials/_SalesQuotation.cshtml")
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-expense" role="tabpanel" aria-labelledby="v-pills-expense-tab">
+                            @await Html.PartialAsync("~/Pages/Customer/Partials/_Expense.cshtml")
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-task" role="tabpanel" aria-labelledby="v-pills-task-tab">
+                            @await Html.PartialAsync("~/Pages/Customer/Partials/_Task.cshtml")
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-note" role="tabpanel" aria-labelledby="v-pills-note-tab">
+                            @await Html.PartialAsync("~/Pages/Customer/Partials/_Note.cshtml")
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-date" role="tabpanel" aria-labelledby="v-pills-date-tab">
+                            @await Html.PartialAsync("~/Pages/Customer/Partials/_Date.cshtml")
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-file" role="tabpanel" aria-labelledby="v-pills-file-tab">
+                            @await Html.PartialAsync("~/Pages/Customer/Partials/_File.cshtml")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </abp-card-body>
+</abp-card>

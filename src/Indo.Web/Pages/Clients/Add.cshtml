@@ -1,0 +1,174 @@
+﻿@page
+@model Indo.Web.Pages.Clients.AddModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:Client"];
+}
+@section scripts{
+    <abp-script src="/Pages/Clients/Add.js" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}
+
+    @section styles{
+    <abp-style src="/Pages/Clients/Index.css" />
+    <abp-style src="/assets/plugins/custom/datatables/datatables.bundle.css" />
+    <abp-style src="/assets/plugins/global/plugins.bundle.css" />
+    <abp-style src="/assets/css/style.bundle.css" />
+}
+
+
+    <form id="AddClientForm" method="post" action="">
+        <abp-container>
+            <div class="post d-flex flex-column-fluid" id="kt_post">
+                <!--begin::Container-->
+                <div id="kt_content_container" class="container-fluid">
+                    <!--begin::Contact-->
+                    <div class="card">
+                        <!--begin::Body-->
+                        <div class="card-body p-lg-17">
+                            <!--begin::Row-->
+                            <div class="row mb-3">
+
+                                <h1 class="fw-bolder text-dark mb-9">Add New Client</h1>
+
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-12 fv-row">
+                                    <div class="form-group">
+                                        <label for="Client_Name">Name</label><span class="star"> * </span>
+                                        <input id="txtClientName" name="Client.Name" class="addValidation form-control " placeholder="Name" type="text" />
+                                    </div>
+
+                                        <div id="nameError">The Name field is required.</div>
+                                        <div id="nameValidation">The Name field should only contain letters and spaces.</div>
+                                        <input type="hidden" id="hidprojectnameist" asp-for="Client.projectnameist" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Client_Email">Email</label><span class="star"> * </span>
+                                            <input id="txtEmail" name="Client.Email" class="addValidation form-control " placeholder="Email" type="text" />
+                                        </div>
+
+                                            <div id="emailError">The Email field is required.</div>
+                                            <div id="emailValidation">Please provide a valid Email Id.</div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Client_PhoneNumber">Phone Number</label><span class="star"> * </span>
+                                            <input id="txtPhoneNumber" name="Client.PhoneNumber" class="addValidation form-control" placeholder="Phone Number" type="tel" />
+                                        </div>
+
+                                        <div id="phoneNumberError">The Phone Number field is required.</div>
+                                    <div id="phoneNumberValidation">Please provide a valid Phone Number.</div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5 align-items-center">
+
+                                    <div class="col-md-12 fv-row">
+                                        <div class="form-group">
+                                            <label for="Client_Address">Address</label><span class="star"> * </span>
+                                            <input id="txtAddress" name="Client.Address" class="addValidation form-control " placeholder="Address" type="text" />
+                                        </div>
+
+                                        <div id="addressError">The Address field is required.</div>
+                                        <div id="addressValidation">The Address field should only contain letters and spaces.</div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Client_Country">Country</label><span class="star"> * </span>
+                                            <input id="txtCountry" name="Client.Country" class="addValidation form-control " placeholder="Country" type="text" />
+                                        </div>
+
+                                        <div id="countryError">The Country field is required.</div>
+                                        <div id="countryValidation">The Country field should only contain letters and spaces.</div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Client_State">State</label><span class="star"> * </span>
+                                            <input id="txtState" name="Client.State" class="addValidation form-control " placeholder="State" type="text" />
+                                        </div>
+
+                                        <div id="stateError">The State field is required.</div>
+                                        <div id="stateValidation">The State field should only contain letters and spaces.</div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Client_City">City</label><span class="star"> * </span>
+                                            <input id="txtCity" name="Client.City" class="addValidation form-control " placeholder="City" type="text" />
+                                        </div>
+
+                                        <div id="cityError">The City field is required.</div>
+                                        <div id="cityValidation">The City field should only contain letters and spaces.</div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Client_Zip">Zip</label><span class="star"> * </span>
+                                            <input name="Client.Zip" id="txtZip" class="addValidation form-control " placeholder="Zip" type="text" />
+                                        </div>
+
+                                        <div id="zipError">The Zip field is required.</div>
+                                        <div id="zipValidation">The Zip field should only contain characters and numbers.</div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-12 fv-row">
+                                    <span>Project Name List</span>
+                                        <div class="form-field-block" id="ddlClientProject">
+                                            <input type="hidden" id="hidprojectcount" value="@Model.Projects.Count" name="Model.Projects.Count"/>
+                                            <div class="custom-selects form-control ">                                                
+                                                <ul class="custom-selected"></ul>
+                                                <input type="text" class="multi-input" placeholder="Select Project Name" />
+                                            </div>
+                                             <span class="spNoRecord" id="spRecord">No Record Found</span>
+                                            <ul class="custom-sel-list" id="projectList">
+                                               @{
+                                                foreach (var item in Model.Projects)
+                                                {
+                                                      <li value="@item.Value">@item.Text</li>
+                                                }
+                                               }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-12">
+                                    <div class="col-md-12">
+                                        <a href="/Clients" class="btn-secondary btn">
+                                            @l["Button:Cancel"]
+                                        </a>
+                                        <button class="btn-primary btn" data-busy-text="Saving..." id="btnsave" type="submit">
+                                            <span class="indicator-label">Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+                        </div>
+
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::Contact-->
+            </div>
+            <!--end::Container-->
+        </div>
+    </abp-container>
+</form>
+<!--end::Post-->

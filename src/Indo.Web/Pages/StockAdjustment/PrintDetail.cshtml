@@ -1,0 +1,103 @@
+﻿@page "{id:Guid}"
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> L
+@model Indo.Web.Pages.StockAdjustment.PrintDetailModel
+@section styles {
+    <link href="~/print/adminlte.min.css" rel="stylesheet" type="text/css" />
+}
+@section scripts {
+    <script>
+        var barcodeCode128 = new ej.barcodegenerator.BarcodeGenerator({
+            type: 'Code128C',
+            value: $("#hfStockAdjustmentNumber").val(),
+            width: '300px', height: '100px',
+            mode: 'SVG',
+        });
+        barcodeCode128.appendTo('#barcode');
+    </script>
+    <script>window.addEventListener("load", window.print());</script>
+}
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@inject IThemeManager ThemeManager
+@{ Layout = ThemeManager.CurrentTheme.GetEmptyLayout(); }
+<div class="wrapper">
+    <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="page-header">
+                    <i class="fas fa-cubes"></i> STOCK ADJUSTMENT.
+                    <input type="hidden" id="hfStockAdjustmentNumber" value="@(Model.StockAdjustment.Number.Substring(0, 6))" />
+                </h2>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                Warehouse
+                <address>
+                    <strong>@Model.StockAdjustment.WarehouseName</strong><br>
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                Type
+                <address>
+                    <strong>@Model.StockAdjustment.AdjustmentType</strong><br>
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <span>Adjustment Number: <strong>@Model.StockAdjustment.Number</strong></span><br />
+                <span>Adjustment Date: <strong>@Model.StockAdjustment.AdjustmentDate.ToString("MMM dd, yyyy")</strong></span><br>
+                <div id="barcode"></div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.Details.Items)
+                            {
+                                <tr>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.Quantity <span class="badge badge-pill badge-info ml-1">@item.UomName</span></td>
+
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-6">
+            </div>
+            <!-- /.col -->
+            <div class="col-6">
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+

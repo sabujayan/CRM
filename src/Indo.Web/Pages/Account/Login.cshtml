@@ -1,0 +1,105 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.Account.Localization
+@using Volo.Abp.Account.Settings
+@using Volo.Abp.Settings
+@model Volo.Abp.Account.Web.Pages.Account.LoginModel
+@inject IHtmlLocalizer<AccountResource> L
+@inject Volo.Abp.Settings.ISettingProvider SettingProvider
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@inject IThemeManager ThemeManager
+@{
+    Layout = ThemeManager.CurrentTheme.GetEmptyLayout();
+    bool isDemo = Indo.Demo.DemoConsts.IsEnabled;
+    var demo_username = "";
+    var demo_password = "";
+    if (isDemo)
+    {
+        demo_username = "admin";
+        demo_password = "1q2w3E*";
+    }
+}
+@section styles {
+}
+<div class="auth-wrapper aut-bg-img-side cotainer-fiuid align-items-stretch">
+    <div class="row align-items-center w-100 align-items-stretch bg-white">
+        <div class="d-none d-lg-flex col-lg-8 aut-bg-img align-items-end d-flex justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-white mb-3">@L["Log In"]</h1>
+                <p class="text-white mb-5">CRM PRO system login page. Use this page to login to the system.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 align-items-stret h-100 align-items-center d-flex justify-content-center">
+            <div class=" auth-content text-left">
+                @*<div class="mb-4">
+                    <i class="feather icon-unlock auth-icon"></i>
+                </div>*@
+                <h3 class="mb-2">@L["Log In"]</h3>
+                <p class="mb-4 text-muted">
+                    Enter Your Login Credentials Carefully
+                    @*@if (await SettingProvider.IsTrueAsync(AccountSettingNames.IsSelfRegistrationEnabled))
+                    {
+                        <strong>
+                            @L["AreYouANewUser"]
+                            <a href="@Url.Page("./Register", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})">@L["Register"]</a>
+                        </strong>
+                    }*@
+                </p>
+                @if (Model.EnableLocalLogin)
+                {
+                    <form method="post" class="mt-2">                        
+                        <div class="form-group mb-3">
+                            <label class="form-label text-dark f-w-600">Email</label>
+                            <input asp-for="LoginInput.UserNameOrEmailAddress" class="form-control" placeholder="Email" value="@demo_username">
+                        </div>                     
+                        <div class="form-group mb-3">
+                            <span asp-validation-for="LoginInput.UserNameOrEmailAddress" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label class="form-label text-dark f-w-600">Password</label>
+                            <input asp-for="LoginInput.Password" type="password" class="form-control" placeholder="password" value="@demo_password">
+                        </div>
+                        <div class="form-group mb-4">
+                            <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-left">
+                            <div class="checkbox checkbox-fill d-inline">
+                                <input asp-for="LoginInput.RememberMe" type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
+                                <label for="checkbox-fill-a1" class="cr f-w-600"> Save credentials</label>
+                            </div>
+                        </div>
+                        <button type="submit" name="Action" value="Login" class="btn btn-primary w-100 shadow-2 mb-4">@L["Login"]</button>
+                        <p class="mb-2 text-muted">Forgot password ? <a class="text-primary" href="@Url.Page("./ForgotPassword", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})">@L["Change Password"]</a></p>
+                        <p class="mb-0 text-muted">Don’t have an account? <a class="text-primary" href="@Url.Page("./Register", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})">@L["Register"]</a></p>
+                        
+                        @if (Model.ShowCancelButton)
+                        {
+                            <abp-button type="submit" button-type="Secondary" formnovalidate="formnovalidate" name="Action" value="Cancel" class="btn-block btn-lg mt-3">@L["Cancel"]</abp-button>
+                        }
+                    </form>
+                }
+
+                @if (Model.VisibleExternalProviders.Any())
+                {
+                    <div class="mt-2">
+                        <h5>@L["OrLoginWith"]</h5>
+                        <form asp-page="./Login" asp-page-handler="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" asp-route-returnUrlHash="@Model.ReturnUrlHash" method="post">
+                            @foreach (var provider in Model.VisibleExternalProviders)
+                            {
+                                <button type="submit" class="btn btn-primary m-1" name="provider" value="@provider.AuthenticationScheme" title="@L["LogInUsingYourProviderAccount", provider.DisplayName]">@provider.DisplayName</button>
+                            }
+                        </form>
+                    </div>
+                }
+
+                @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
+                {
+                    <div class="alert alert-warning">
+                        <strong>@L["InvalidLoginRequest"]</strong>
+                        @L["ThereAreNoLoginSchemesConfiguredForThisClient"]
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@page
+@model Indo.Web.Pages.LeadRating.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:CustomerManagementDataMasterLeadRating"];
+}
+@section styles{
+    <abp-style src="/Pages/LeadRating/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/LeadRating/Index.js" />
+}
+<div class="row">
+    <div class="col-12">
+        @(await Component.InvokeAsync<SpinnerViewComponent>())
+        <div id="Grid"></div>
+    </div>
+</div>

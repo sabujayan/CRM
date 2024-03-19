@@ -1,0 +1,65 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.GoodsReceipt.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Goods Receipt"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Goods Receipt</h3>
+            <p>
+                Goods receipt is a process of moving product in to a warehouse known as inbound. The document automatically generated when inter-warehouse transfer is confirm. By default the status is confirm.
+            </p>
+            <p>
+                This module provide feature to navigate to goods receipt details and it's delivery order origin.
+            </p>
+            <p>
+                <b>Note: </b> inter-warehouse transfer will generate delivery order and goods receipt. Delivery order for outbound process and goods receipt for inbound process. Pair of inbound and outbound is integral part of inter-warehouse transfer which is moving a product from one warehouse to another. There should be a warehouse that send the product and there should be a warehouse that receipt the product.
+            </p>
+            <h4>Document Status</h4>
+            <ul>
+                <li><b>Confirm</b>.</li> Next status above Draft which is used for confirmed transaction. Transaction can not updated and can not deleted.
+            </ul>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data. Only active for draft transaction.</li>
+                <li><b>Delete</b>. Show confirmation dialog to delete selected data. Only active for draft transaction.</li>
+                <li><b>Details</b>. Navigate to detail view page for selected data.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Number</b>. Autogenerate specific number sequence based on module.</li>
+                <li><b>From Warehouse</b>. Source warehouse.</li>
+                <li><b>To Warehouse</b>. Destination warehouse.</li>
+                <li><b>Delivery Order</b>. Delivery order which the product will be received.</li>
+                <li><b>Goods Receipt Date</b>. Date of receipt.</li>
+            </ul>
+            <h3>Goods Receipt Detail</h3>
+            <p>
+                Goods receipt detail is a page that show detail view of the goods receipt. This page provide feature to manage items. Only draft transaction can be manage for addition, update and deletion.
+            </p>
+            <h4>Button Actions</h4>
+            <ul>
+                <li><b>Plus New Button</b>. Show modal screen to add new data.</li>
+                <li><b>List Button</b>. Navigate back to main grid data.</li>
+                <li><b>Print Button</b>. Navigate to windows print option (save as pdf, or print the detail view).</li>
+            </ul>
+            <h4>Toolbar Actions</h4>
+            <li><b>Edit</b>. Show modal screen to update selected data. Only active for draft transaction.</li>
+            <li><b>Delete</b>. Show confirmation dialog to delete selected data. Only active for draft transaction.</li>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Product</b>. Detail items as physical product that lookup to the product master data.</li>
+                <li><b>Quantity</b>. Quantity of the received product.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

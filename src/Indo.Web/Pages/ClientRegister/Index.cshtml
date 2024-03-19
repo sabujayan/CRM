@@ -1,0 +1,152 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.Account.Localization
+@model Indo.Web.Pages.ClientRegister.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@inject IThemeManager ThemeManager
+@{
+    Layout = ThemeManager.CurrentTheme.GetEmptyLayout();
+}
+@section scripts{
+    <abp-script src="/Pages/ClientRegister/Index.js" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}
+    @{
+    ViewBag.Title = l["Menu:Client"];
+}
+@section styles {
+    <abp-style src="/assets/css/custom.css" />
+    <abp-style src="/Pages/ClientRegister/Index.css" />
+}
+
+    <div class="auth-wrapper aut-bg-img-side cotainer-fiuid align-items-stretch">
+        <div class="row align-items-center w-100 align-items-stretch bg-white">
+            <div class="d-none d-lg-flex col-lg-8 aut-bg-img align-items-center d-flex justify-content-center">
+                <div class="col-md-8">
+                    <h1 class="text-white mb-5">@l["Client Register"]</h1>
+                    <p class="text-white">CRM PRO system register page. Use this page to register your self to the system.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 align-items-stret h-100 align-items-center d-flex justify-content-center">
+                <div class=" auth-content">
+                    <div class="mb-4 d-flex justify-content-center">
+                        <h3 class="mb-4">@l["Client Register"]</h3>
+                        <i class="feather icon-user-plus auth-icon pl-2"></i>
+                    </div>
+
+                    <form method="post" class="mt-4 form-100">
+                        <div class="input-group mb-3 required">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_Name">Name</label><span class="star"> * </span>
+                                    <input id="txtClientName" name="Client.Name" class="addValidation form-control " placeholder="Client Name" type="text" />
+                                </div>
+                                <div id="nameError" style="display:none">The Name field is required.</div>
+                                <div id="nameValidation" style="display:none">The Name field should only contain letters and spaces.</div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3 required">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_Email">Email</label><span class="star"> * </span>
+                                    <input id="txtClientEmail" name="Client.Email" class="addValidation form-control " placeholder="Client Email" type="text" />
+                                </div>
+                                <div id="emailError" style="display:none">The Email field is required.</div>
+                                <div id="emailValidation" style="display:none">Enter A Valid Email-Id</div>
+                            </div>
+                        </div>
+
+
+                        <div class="input-group mb-3 required">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_PhoneNumber">PhoneNumber</label><span class="star"> * </span>
+                                    <input id="txtClientPhoneNumber" name="Client.PhoneNumber" class="addValidation form-control " placeholder="PhoneNumber" type="text" />
+                                </div>
+                                <div id="phoneNumberError" style="display:none">The PhoneNo field is required.</div>
+                                <div id="phoneNumberValidation" style="display:none">Enter A Valid  Phone Number</div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-4 ">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_Address">Address</label><span class="star"> * </span>
+                                    <input id="txtClientAddress" name="Client.Address" class="addValidation form-control " placeholder="Address" type="text" />
+                                </div>
+                                <div id="AddressError" style="display:none">The Address field is required.</div>
+                                <div id="AddressValidation" style="display:none">Enter Address</div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_Country">Country</label><span class="star"> * </span>
+                                    <input id="txtCountry" name="Client.Country" class="addValidation form-control " placeholder="Country" type="text" />
+                                </div>
+                                <div id="CountryError" style="display:none">The Country field is required.</div>
+                                <div id="CountryValidation" style="display:none">Enter Country</div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_State">State</label><span class="star"> * </span>
+                                    <input id="txtState" name="Client.State" class="addValidation form-control " placeholder="State" type="text" />
+                                </div>
+                                <div id="StateError" style="display:none">The State field is required.</div>
+                                <div id="StateValidation" style="display:none">Enter State</div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_City">City</label><span class="star"> * </span>
+                                    <input id="txtCity" name="Client.City" class="addValidation form-control " placeholder="City" type="text" />
+                                </div>
+                                <div id="CityError" style="display:none">The State field is required.</div>
+                                <div id="CityValidation" style="display:none">Enter City</div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_Zip">Zip</label><span class="star"> * </span>
+                                    <input id="txtZip" name="Client.Zip" class="addValidation form-control " placeholder="Zip" type="text" />
+                                </div>
+                                <div id="ZipError" style="display:none">The Zip field is required.</div>
+                                <div id="ZipValidation" style="display:none">Enter Zip</div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_Password">Password</label><span class="star"> * </span>
+                                    <input id="txtPassword"  name="Client.Password" class="addValidation form-control " placeholder="Password" type="password" />
+                                </div>
+                                <div id="PasswordError" style="display:none">The Password field is required.</div>
+                                <div id="PasswordValidation" style="display:none">Enter Password</div>
+                            </div>
+                        </div>
+
+                         <div class="input-group mb-4">
+                            <div class="col-md-8 fv-row">
+                                <div class="form-group">
+                                    <label for="Client_Confirmpassword">Confirm Password</label><span class="star"> * </span>
+                                    <input id="txtConfirmPassword"   class="addValidation form-control " placeholder="Password" type="password" />
+                                </div>
+                                <div id="cpasswordError" style="display:none">The field is required.</div>
+                                <div id="cpasswordValidation" style="display:none">Password did not match</div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" id="btnsave" class="btn btn-primary shadow-2 mb-4">@l["Register"]</button>
+                        </div>
+                    </form>
+                </div>
+            </div>

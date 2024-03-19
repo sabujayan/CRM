@@ -1,0 +1,46 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Lead.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Lead"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Lead</h3>
+            <p>
+                Lead is third pary that can be a person or an organization. Lead refer to party that potentially become customer also known as prospect.
+            </p>
+            <p>
+                This module provide feature to manage leads data.
+            </p>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Add</b>. Show modal screen to add new data.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data.</li>
+                <li><b>Delete</b>. Show modal screen to delete selected data. Data that already used on transaction can not deleted.</li>
+                <li><b>Convert Lead to Customer</b>. Process converting Lead into Customer. This process is done after they accept the quotation and ready to buy service or product from us.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Name</b>. Lead name.</li>
+                <li><b>Street</b>. Lead street address location.</li>
+                <li><b>City</b>. Lead city address location.</li>
+                <li><b>State</b>. Lead state address location.</li>
+                <li><b>ZipCode</b>. Lead zipcode / postal code.</li>
+                <li><b>Phone</b>. Lead phone number.</li>
+                <li><b>Email</b>. Lead email address.</li>
+                <li><b>Lead source</b>. Sources of getting lead info.</li>
+                <li><b>Lead rating</b>. Quantitative measure for prioritization or order of importance relative to each other.</li>
+                <li><b>Lead stage</b>. Stages on lead in an effort to convert them become customer who purchase our product. Stage 1: Engage, the lead already have interaction with product marketing material. Stage 2: Accepted, sales and marketing team already done the BANT check to the lead. Stage 3: Qualified, lead have express enough interest to our product and ready to chat with dedicated sales team to close the deal.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

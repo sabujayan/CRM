@@ -1,0 +1,60 @@
+﻿@using Volo.Abp.UI.Navigation
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContext
+@model ApplicationMenuItem
+@{
+    var elementId = string.IsNullOrEmpty(Model.ElementId) ? string.Empty : $"id=\"{Model.ElementId}\"";
+    var cssClass = string.IsNullOrEmpty(Model.CssClass) ? string.Empty : Model.CssClass;
+    var disabled = Model.IsDisabled ? "disabled" : string.Empty;
+    var url = string.IsNullOrEmpty(Model.Url) ? "#" : Url.Content(Model.Url);
+    var currentPath = httpContext.HttpContext.Request.Path.Value;
+    var detailIndex = currentPath.IndexOf("/Detail");
+    if (detailIndex > 0)
+    {
+        currentPath = currentPath.Remove(detailIndex);
+    }
+    var pcoded_trigger = "";
+    var activeLeaf = "";
+    var active = "";
+    if (!Model.IsLeaf)
+    {
+        foreach (var item in Model.Items)
+        {
+            if (currentPath == Url.Content(item.Url))
+            {
+                pcoded_trigger = "pcoded-trigger";
+                active = "active";
+            }
+        }
+    }
+    else
+    {
+        activeLeaf = Url.Content(Model.Url) == currentPath ? "active" : "";
+    }
+}
+@if (Model.IsLeaf)
+{
+    if (Model.Url != null)
+    {
+        <li class="@activeLeaf @disabled">
+            <a href="@url" class=" @cssClass" target="@Model.Target" @Html.Raw(elementId)>@Model.DisplayName</a>
+        </li>  
+    }
+}
+else
+{
+   
+    <li class="pcoded-hasmenu @active @pcoded_trigger @disabled">
+        <a href="#!" class="">@Model.DisplayName</a>
+        <ul class="pcoded-submenu">
+            @foreach (var childMenuItem in Model.Items)
+            {
+                <li class="">
+                    @await Html.PartialAsync("~/Themes/Gojazz/Components/Menu/_MenuItem.cshtml", childMenuItem)
+                </li>
+            }
+        </ul>
+    </li>
+    
+
+}

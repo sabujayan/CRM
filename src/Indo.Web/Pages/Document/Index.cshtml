@@ -1,0 +1,19 @@
+﻿@page
+@model Indo.Web.Pages.Document.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:UtilitiesTransactionDocument"];
+}
+@section styles{
+    <abp-style src="/Pages/Document/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/Document/Index.js" />
+}
+<div class="row">
+    <div class="col-12">
+        <div id="filemanager"></div>
+    </div>
+</div>

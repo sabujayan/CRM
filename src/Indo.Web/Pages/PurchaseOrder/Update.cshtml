@@ -1,0 +1,47 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.PurchaseOrder.UpdateModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+<form id="form" asp-page="/PurchaseOrder/Update">
+    <abp-modal>
+        <abp-modal-header title="@l["Update"].Value @l["Menu:PurchaseTransactionPurchaseOrder"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="PurchaseOrder.Id"></abp-input>
+                        <abp-input asp-for="PurchaseOrder.Number"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="PurchaseOrder.Description"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-select asp-for="PurchaseOrder.VendorId"></abp-select>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="PurchaseOrder.OrderDate"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-select asp-for="PurchaseOrder.BuyerId"></abp-select>
+                    </abp-column>
+                </abp-row>
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="button" id="btn-update-go-to-detail"><i class="fa-check fa"></i> <span>@l["Button:SaveGoDetail"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

@@ -1,0 +1,22 @@
+﻿@page
+@model Indo.Web.Pages.Booking.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:UtilitiesTransactionBooking"];
+}
+@section styles{
+    <abp-style src="/Pages/Booking/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/Booking/Index.js" />
+    <abp-script src="/Pages/Booking/Create.js" />
+    <abp-script src="/Pages/Booking/Update.js" />
+}
+<div class="row">
+    <div class="col-12">
+        @(await Component.InvokeAsync<SpinnerViewComponent>())
+        <div id="Grid"></div>
+    </div>
+</div>

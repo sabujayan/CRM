@@ -1,0 +1,102 @@
+﻿@page "{id:Guid}"
+@model Indo.Web.Pages.TransferOrder.DetailModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = $"{l["Menu:TransferTransactionTransferOrder"].Value} {Model.TransferOrder.Number}";
+}
+@section scripts
+{
+    <abp-script src="/Pages/TransferOrder/Detail.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@Model.TransferOrder.Number</abp-card-title>
+                <input type="hidden" id="hfTransferOrderId" asp-for="TransferOrder.Id" />
+                <input type="hidden" id="hfTransferOrderNumber" asp-for="TransferOrder.Number" />
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <div class="card-block">
+            <div class="row invoive-info">
+                <div class="col-md-4 col-sm-6">
+                    <h6>Warehouse Information :</h6>
+                    <table class="table table-responsive invoice-table invoice-order table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>From :</th>
+                                <td>@Model.TransferOrder.FromWarehouseName</td>
+                            </tr>
+                            <tr>
+                                <th>To :</th>
+                                <td>@Model.TransferOrder.ToWarehouseName</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h6>Transfer Information :</h6>
+                    <table class="table table-responsive invoice-table invoice-order table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>Date :</th>
+                                <td>@Model.TransferOrder.OrderDate.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th>Status :</th>
+                                <td>
+                                    <span class="label label-warning">@Model.TransferOrder.Status</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h6 class="m-b-20">Transfer Number <span>#@Model.TransferOrder.Number</span></h6>
+                    <div id="qrcode"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    @if (Model.TransferOrder.Status != Indo.TransferOrders.TransferOrderStatus.Draft)
+                    {
+                        <i>* Un-editable, only Draft document is editable.</i>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-left">
+                <a type="button" href='~/TransferOrder' class="btn btn-secondary">@l["Menu:TransferTransactionTransferOrder"]</a>
+            </div>
+            <div class="col-sm-6 text-right">
+                <abp-button id="NewTransferOrderDetailButton"
+                            text="@l["New"].Value"
+                            icon="plus"
+                            button-type="Primary"
+                            disabled="@(Model.TransferOrder.Status != Indo.TransferOrders.TransferOrderStatus.Draft)" />
+            </div>
+        </div>
+        <div class="row m-b-20">
+            <div class="col-sm-12">
+                <abp-table striped-rows="true" id="TransferOrderDetailsTable"></abp-table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="/TransferOrder/PrintDetail/@Model.TransferOrder.Id" rel="noopener" target="_blank" class="btn btn-secondary"><i class="fas fa-print"></i> Print @l["Menu:TransferTransactionTransferOrder"]</a>
+            </div>
+        </div>
+    </abp-card-body>
+</abp-card>

@@ -1,0 +1,74 @@
+﻿/* For datatable */
+.dataTables_scrollBody {
+    min-height: 248px;
+}
+
+div.dataTables_wrapper div.dataTables_info {
+    padding-top: 20px;
+    white-space: nowrap;
+}
+
+div.dataTables_wrapper div.dataTables_length label {
+    padding-top: 10px;
+    margin-bottom: 0;
+}
+
+/* For Syncfusion Grid */
+
+#Grid .e-gridcontent {
+    cursor: pointer;
+}
+
+#Grid .e-toolbar .e-toolbar-items.e-tbar-pos .e-toolbar-right {
+    left: 15px;
+} 
+
+/* For Syncfusion Schedule*/
+.e-time-zone-container {
+    display: none;
+}
+.e-recurrenceeditor {
+    display: none;
+}
+.e-all-day-container {
+    display: none;
+}
+.e-toolbar-item.e-today {
+    display: none !important;
+} 
+
+#Schedule {
+    min-height: 450px;
+}
+
+/* For Select2 */
+.select2-selection {
+    height: 42px !important;
+    background: #f4f7fa !important;
+}
+
+/* image varient start */
+.aut-bg-img {
+    background-image: url("../images/bg-images/bg4.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+/*.checkbox.checkbox-fill input[type=checkbox] + .cr:before {
+    opacity: 0;
+     content: "\e840"; 
+    content: "\f14a" !important;
+    font-size: 27px;
+    color: #fff !important;
+    background: #007bff !important;
+    margin-left: 0px;
+}
+.checkbox.checkbox-fill input[type=checkbox] + .cr:after {
+    left: 0px !important;
+}*/
+
+
+
+

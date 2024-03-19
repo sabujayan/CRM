@@ -1,0 +1,243 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Employee.AddModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+      ViewBag.Title = l["Menu:SettingsEmployee"];
+}
+@section styles{
+    <abp-style src="/Pages/Employee/Index.css" />
+    <abp-style src="/assets/plugins/custom/datatables/datatables.bundle.css" />
+    <abp-style src="/assets/plugins/global/plugins.bundle.css" />
+    <abp-style src="/assets/css/style.bundle.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/Employee/Add.js" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}
+<form id="AddEmployeeForm" method="post" action="">
+        <abp-container>
+            <div class="post d-flex flex-column-fluid" id="kt_post">
+                <!--begin::Container-->
+                <div id="kt_content_container" class="container-fluid">
+                    <!--begin::Contact-->
+                    <div class="card">
+                        <!--begin::Body-->
+                        <div class="card-body p-lg-17">
+                            <!--begin::Row-->
+                            <div class="row mb-3">
+                                <!--begin::Col-->
+                                <!-- <div class="col-md-6 pe-lg-10"> -->
+                                <!--begin::Form-->
+
+                                <form action="" class="form mb-15" method="post" id="kt_contact_form">
+
+                                    <h1 class="fw-bolder text-dark mb-9">Add New Employee</h1>
+                                    <div class="row mb-5 align-items-center">
+                                        <div class="col-md-12 fv-row">
+                                            @*<abp-input asp-for="Employee.Name"></abp-input>*@
+                                            <div class="form-group">
+                                                <label for="Employee.Name">Name</label><span class="star"> * </span>
+                                                <input id="txtEmployeeName" name="Employee.Name" class="addValidation form-control " placeholder="Employee Name" type="text" />
+                                            </div>
+                                            <div id="nameError">The Employee Name field is required.</div>
+                                            <div id="nameValidation">The Employee Name field should only contain letters and spaces.</div>
+                                            <input type="hidden" id="hidskilllist" asp-for="Employee.SkillList" />
+                                            <input type="hidden" id="hidclientnamelist" asp-for="Employee.ClientNameList" />
+                                            <input type="hidden" id="hidprojectnameist" asp-for="Employee.ProjectNameList" />
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-6 fv-row">
+                                            @*<abp-input asp-for="Employee.EmployeeNumber"></abp-input>*@
+                                            <div class="form-group">
+                                                <label for="Employee.EmployeeNumber">Employee Number</label><span class="star"> * </span>
+                                                <input id="txtEmployeeNumber" name="Employee.EmployeeNumber" class="addValidation form-control " placeholder="Employee Number" type="text" />
+                                            </div>
+                                            <div id="employeeNumberError">The Employee Number field is required.</div>
+                                            <div id="employeeNumberValidation">The Employee Number field should only contain number.</div>
+                                        </div>
+                                        <div class="col-md-6 fv-row">
+                                            @*<abp-input asp-for="Employee.Street"></abp-input>*@
+                                            <div class="form-group">
+                                                <label for="Employee.Street">Street</label><span class="star"> * </span>
+                                                <input id="txtEmployeeStreet" name="Employee.Street" class="addValidation form-control " placeholder="Employee Street" type="text" />
+                                            </div>
+                                            <div id="streetError">The Employee Street field is required.</div>
+                                            <div id="streetValidation">The Employee Street field should only contain character and space.</div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-6 fv-row">
+                                            @*<abp-input asp-for="Employee.City"></abp-input>*@
+                                            <div class="form-group">
+                                                <label for="Employee.City">City</label><span class="star"> * </span>
+                                                <input id="txtEmployeeCity" name="Employee.City" class="addValidation form-control " placeholder="Employee City" type="text" />
+                                            </div>
+                                            <div id="cityError">The Employee City field is required.</div>
+                                            <div id="cityValidation">The Employee City field should only contain character and space.</div>
+                                        </div>
+                                        <div class="col-md-6 fv-row">
+                                            @*<abp-input asp-for="Employee.State"></abp-input>*@
+                                            <div class="form-group">
+                                                <label for="Employee.State">State</label><span class="star"> * </span>
+                                                <input id="txtEmployeeState" name="Employee.State" class="addValidation form-control " placeholder="Employee State" type="text" />
+                                            </div>
+                                            <div id="stateError">The Employee State field is required.</div>
+                                            <div id="stateValidation">The Employee State field should only contain character and space.</div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-6 fv-row">
+                                            @*<abp-input asp-for="Employee.ZipCode"></abp-input>*@
+                                            <div class="form-group">
+                                                <label for="Employee.ZipCode">ZipCode</label><span class="star"> * </span>
+                                                <input id="txtEmployeeZipCode" name="Employee.ZipCode" class="addValidation form-control " placeholder="Employee ZipCode" type="text" />
+                                            </div>
+                                            <div id="zipCodeError">The Employee ZipCode field is required.</div>
+                                            <div id="zipCodeValidation">The Employee ZipCode field should only contain number.</div>
+                                        </div>
+                                        <div class="col-md-6 fv-row">
+                                            @*<abp-input asp-for="Employee.Phone"></abp-input>*@
+                                            <div class="form-group">
+                                                <label for="Employee.Phone">Phone Number</label><span class="star"> * </span>
+                                                <input id="txtEmployeePhone" name="Employee.Phone" class="addValidation form-control " placeholder="Employee Phone" type="text" />
+                                            </div>
+                                            <div id="phoneCodeError">The Employee Phone Number field is required.</div>
+                                            <div id="phoneCodeValidation">The Employee Phone Number field should only contain number.</div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-6 fv-row">
+                                            @*<abp-input asp-for="Employee.Email"></abp-input>*@
+                                            <div class="form-group">
+                                                <label for="Employee.Email">Email</label><span class="star"> * </span>
+                                                <input id="txtEmployeeEmail" name="Employee.Email" class="addValidation form-control " placeholder="Employee Email" type="text" />
+                                            </div>
+                                            <div id="emailCodeError">The Employee Email field is required.</div>
+                                            <div id="emailCodeValidation">Please provide a correct Email.</div>
+                                        </div>
+                                        <div class="col-md-6 fv-row">
+                                            @*<abp-input asp-for="Employee.Position"></abp-input>*@
+                                            <div class="form-group">
+                                                <label for="Employee.Position">Position</label><span class="star"> * </span>
+                                                <input id="txtEmployeePosition" name="Employee.Position" class="addValidation form-control " placeholder="Employee Position" type="text" />
+                                            </div>
+                                            <div id="positionError">The Employee Position field is required.</div>
+                                            <div id="positionValidation">The Employee Position field should only contain Character.</div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-6 fv-row">
+                                            <abp-select asp-for="Employee.DepartmentId" id="depId"></abp-select>
+                                        </div>
+                                        <div class="col-md-6 fv-row">
+                                            <abp-select asp-for="Employee.EmployeeGroup" id="empGroup"></abp-select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5 align-items-center">
+                                            @*<abp-select  asp-for="Employee.SkillId" asp-items="@Model.Skills" />*@
+                                        <div class="col-md-12 fv-row">
+                                            <span>Skill Name List</span><span class="spTech" id="spTech">&nbsp;*</span>
+                                            @*<span>Skill Name List</span>*@
+                                            <div class="form-field-block" id="ddlClientSkill">
+                                                <input type="hidden" id="hidskillcount" value="@Model.Skills.Count" name="Model.Skills.Count" />
+                                                <div class="custom-selects form-control ">
+                                                    <ul onchange="skillName()" class="custom-selected"></ul>
+                                                    <input type="text" class="multi-input" placeholder="Select Skills Name" />
+                                                </div>
+                                            <span class="spNoRecord" id="srpRecord">No Record Found</span>
+                                                <ul class="custom-sel-list" id="clientSkill">
+                                                    @{
+                                                        foreach (var item in Model.Skills)
+                                                        {
+                                                            <li id="@item.Text" value="@item.Value">@item.Text</li>
+                                                        }
+                                                    }
+                                                </ul>
+                                                <div id="skillListError">The Skill List field is required.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5 align-items-center">
+                                        <div class="col-md-12 fv-row">
+                                            @*<abp-select  asp-for="Employee.ProjectsId" asp-items="@Model.Projects" />*@
+                                            @*<span>Project Name List</span>*@
+                                            <span>Project Name List</span>@*<span class="spTech" id="spTech">&nbsp;*</span>*@
+                                            <div class="form-field-block" id="ddlClientProject">
+                                                <input type="hidden" id="hidprojectcount" value="@Model.Projects.Count" name="Model.Projects.Count" />
+                                                <div class="custom-selects form-control ">
+                                                    <ul onchange="projectName()" id="P_name" class="custom-selected"></ul>
+                                                    <input type="text" class="multi-input" placeholder="Select Project Name" />
+                                                </div>
+                                            <span class="spNoRecord" id="spRecord">No Record Found</span>
+                                                <ul class="custom-sel-list" id="clientProject">
+                                                    @{
+                                                        foreach (var item in Model.Projects)
+                                                        {
+                                                            <li value="@item.Value">@item.Text</li>
+                                                        }
+                                                        }
+                                                    </ul>
+                                                @*<div id="projectsError">The Projects List field is required.</div>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5 align-items-center">
+                                        <div class="col-md-12 fv-row">
+                                            <abp-input asp-for="Employee.Bandwidth"></abp-input>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5 align-items-center">
+                                        <div class="col-md-12 fv-row">
+                                            @* <abp-select asp-for="Employee.ClientsId" asp-items="@Model.Clients" />*@
+                                            @*<span>Client Name List</span>*@
+                                            <span>Client Name List</span>@*<span class="spTech" id="spTech">&nbsp;*</span>*@
+                                            <div class="form-field-block" id="ddlClient">
+                                                <input type="hidden" id="hidclientcount" value="@Model.Clients.Count" name="Model.Clients.Count" />
+                                                <div class="custom-selects form-control ">
+                                                    <ul onchange="clientName()" class="custom-selected"></ul>
+                                                    <input type="text" class="multi-input" placeholder="Select Clients Name" />
+                                                </div>
+                                            <span class="spNoRecord" id="scpRecord">No Record Found</span>
+                                                <ul class="custom-sel-list" id="clientNameList">
+                                                    @{
+                                                        foreach (var item in Model.Clients)
+                                                        {
+                                                            <li value="@item.Value">@item.Text</li>
+                                                        }
+                                                        }
+                                                    </ul>
+                                                    @*<div id="clientsError">The Clients List field is required.</div>*@
+                                            </div><div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <div class="row mt-12">
+                                        <div class="col-md-12">
+                                            <a href="/Employee" class="btn-secondary btn">
+                                                @l["Button:Cancel"]
+                                            </a>
+                                          
+                                            <button class="btn-primary btn" id="btnsave" data-busy-text="Saving..." type="submit">
+                                                <span class="indicator-label">Save</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Contact-->
+                </div>
+                <!--end::Container-->
+            </div>
+        </abp-container>
+    </form>

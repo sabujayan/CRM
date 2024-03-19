@@ -1,0 +1,63 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Booking.CreateModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+<form asp-page="/Booking/Create">
+    <abp-modal>
+        <abp-modal-header title="@l["New"].Value @l["Menu:UtilitiesTransactionBooking"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Booking.Name"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Booking.Description"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-select asp-for="Booking.ResourceId"></abp-select>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="Booking.Location"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <div class="form-group">
+                            <label asp-for="Booking.StartTime"></label>
+                            <span>*</span>
+                            <input asp-for="Booking.StartTime" />
+                            <span asp-validation-for="Booking.StartTime"></span>
+                        </div>
+                    </abp-column>
+                    <abp-column>
+                        <div class="form-group">
+                            <label asp-for="Booking.EndTime"></label>
+                            <span>*</span>
+                            <input asp-for="Booking.EndTime" />
+                            <span asp-validation-for="Booking.EndTime"></span>
+                        </div>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Booking.IsDone"></abp-input>
+                    </abp-column>
+                </abp-row>
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

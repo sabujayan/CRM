@@ -1,0 +1,41 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.CustomerPayment.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Customer Payment"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Customer Payment</h3>
+            <p>
+                Customer  Payment is any payments made by or on behalf of a customer. This is for normal situation, the payment against invoice. For payment against credit note, the payment is disburse to the customer, this is known as refund.
+            </p>
+            <p>
+                This module provide feature to manage customer payments data.
+            </p>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Add</b>. Show modal screen to add new data, but its disabled. The payment should be generated from related invoice / credit note transaction.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data.</li>
+                <li><b>Delete</b>. Show modal screen to delete selected data. Data that already used on transaction can not deleted.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Number</b>. Number of customer payment.</li>
+                <li><b>Description</b>. Additional information regarding the customer payment.</li>
+                <li><b>Payment Date</b>. The date when the payment occur.</li>
+                <li><b>Customer</b>. Customer related to the payment transaction.</li>
+                <li><b>Payment Method</b>. Cash or bank data master used to handle the payment.</li>
+                <li><b>Amount</b>. Amount of payment.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

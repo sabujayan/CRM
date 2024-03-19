@@ -1,0 +1,141 @@
+﻿@page
+@model Indo.Web.Pages.EmailInformation.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+
+@{
+    ViewBag.Title = l["Menu:EmailInformation"];
+}
+@section scripts{
+    <abp-script src="/Pages/EmailInformation/Index.js" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}
+@section styles{
+    <abp-style src="/assets/plugins/global/plugins.bundle.css" />
+    <abp-style src="/assets/css/style.bundle.css" />
+    <abp-style src="/Pages/EmailInformation/Index.css" />
+}
+<abp-container>
+    <div class="card">
+        <div class="card-body">
+            <ModalHeader>
+                <h4 class="modal-title mb-5">Send Email</h4>
+            </ModalHeader>
+            <ModalBody>
+       
+            
+                    <form class="d-block w-100" method="post">
+                        <div class="form-group">
+                            <label class="d-block mb-2" for="SendingTypes">Sending Types:</label>
+
+                            <select class="form-control w-200px" name="SendingTypes" id="SendingTypes">
+                                <option value="NULL" selected="--selected">--Sending Types--</option>
+                                <option value="Send Now">Send Now</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Yearly">Yearly</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="to">To:</label>
+                            <div class="input-group1 input_to">
+                                <div class="form-field-block" id="ddlEmployees">
+                                    <input type="hidden" id="hidemployeenameist" asp-for="EmailInformation.To" />
+                                    <input type="hidden" id="hidEmployeescount" value="@Model.Employees.Count" name="Model.Employees.Count" />
+                                    <div class="custom-selectsto form-control">
+
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <ul class="custom-selected"></ul>
+                                            <input type="text" id="txtMultilist" class="multi-input-to" placeholder="to" />
+                                        </div>
+
+
+                                    </div>
+                                    <span class="spNoRecord" id="spRecord">No Record Found</span>
+                                    <ul class="custom-sel-list-to custom-selected" id="employeeNameList">
+                                        @{
+                                            foreach (var item in Model.Employees)
+                                            {
+                                                <li value="@item.Value">@item.Text</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="input-group-append cs_drop">
+                                    <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#ccBccFields" aria-expanded="false" aria-controls="ccBccFields">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="ccBccFields" class="collapse">
+                            <div class="form-group">
+                                <label for="cc">CC:</label>
+                                <div class="form-field-block" id="ddlEmployeescc">
+                                    <input type="hidden" id="hidemployeenameistcc" asp-for="EmailInformation.Cc" />
+                                    <input type="hidden" id="hidEmployeescountcc" value="@Model.Employees.Count" name="Model.Employees.Count" />
+                                    <div class="custom-selects form-control">
+                                        <ul class="custom-selected"></ul>
+                                        <input type="text" id="txtMultilistcc" class="multi-input" placeholder="cc" />
+                                    </div>
+                                    <span class="spNoRecord" id="spRecordcc">No Record Found</span>
+                                    <ul class="custom-sel-list" id="employeeNameListcc">
+                                        @{
+                                            foreach (var item in Model.Employees)
+                                            {
+                                                <li value="@item.Value">@item.Text</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bcc">BCC:</label>
+                                <div class="form-field-block" id="ddlEmployeesbcc">
+                                    <input type="hidden" id="hidemployeenameistbcc" asp-for="EmailInformation.Bcc" />
+                                    <input type="hidden" id="hidEmployeescountbcc" value="@Model.Employees.Count" name="Model.Employees.Count" />
+                                    <div class="custom-selects form-control">
+                                        <ul class="custom-selected"></ul>
+                                        <input type="text" id="txtMultilistbcc" class="multi-input" placeholder="bcc" />
+                                    </div>
+                                    <span class="spNoRecord" id="spRecordbcc">No Record Found</span>
+                                    <ul class="custom-sel-list" id="employeeNameListbcc">
+                                        @{
+                                            foreach (var item in Model.Employees)
+                                            {
+                                                <li value="@item.Value">@item.Text</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Email_Information">EmailTemplates:</label>
+                            <input type="hidden" id="hidEmailInformationId" asp-for="EmailInformation.TemplateId" />
+                            <select class="custom-select form-control valid TemplateId" data-val="true" id="Template_Id" name="EmailInformation.TemplateId">
+                                <option value="NULL" selected="--selected">--Select Template--</option>
+                                @{
+                                    foreach (var item in Model.EmailTemplates)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </form>
+            
+        
+        </ModalBody>
+            <ModalFooter>
+            <button class="btn-primary btn mt-5" data-busy-text="Sending..." id="btnSend" type="submit">
+                <span class="indicator-label">Send</span>
+            </button>
+        </ModalFooter>
+        </div>
+    </div>
+</abp-container>

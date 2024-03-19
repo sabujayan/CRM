@@ -1,0 +1,150 @@
+﻿@page "{id:Guid}"
+@model Indo.Web.Pages.ServiceOrder.PrintDetailModel
+@section styles {
+    <link href="~/print/adminlte.min.css" rel="stylesheet" type="text/css" />
+}
+@section scripts {
+    <script>
+        var barcodeCode128 = new ej.barcodegenerator.BarcodeGenerator({
+            type: 'Code128C',
+            value: $("#hfServiceOrderNumber").val(),
+            width: '300px', height: '100px',
+            mode: 'SVG',
+        });
+        barcodeCode128.appendTo('#barcode');
+    </script>
+    <script>window.addEventListener("load", window.print());</script>
+}
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@inject IThemeManager ThemeManager
+@{ Layout = ThemeManager.CurrentTheme.GetEmptyLayout(); }
+<div class="wrapper">
+    <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="page-header">
+                    <i class="fas fa-globe"></i> SERVICE ORDER.
+                    <input type="hidden" id="hfServiceOrderNumber" value="@(Model.ServiceOrder.Number.Substring(0, 6))" />
+                </h2>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                From
+                <address>
+                    <strong>@Model.Company.Name</strong><br>
+                    @Model.Company.Street<br>
+                    @Model.Company.City @Model.Company.State @Model.Company.ZipCode<br>
+                    Phone: @Model.Company.Phone<br>
+                    Email: @Model.Company.Email
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                To
+                <address>
+                    <strong>@Model.Customer.Name</strong><br>
+                    @Model.Customer.Street<br>
+                    @Model.Customer.City @Model.Customer.State @Model.Customer.ZipCode<br>
+                    Phone: @Model.Customer.Phone<br>
+                    Email: @Model.Customer.Email
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <b>Order Number: @Model.ServiceOrder.Number</b><br>
+                <b>Order Date: </b> @Model.ServiceOrder.OrderDate.ToShortDateString()<br>
+                <b>Currency: </b> @Model.ServiceOrder.CurrencyName<br>
+                <div id="barcode"></div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Before Tax</th>
+                            <th>Tax Amount</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.Details.Items)
+                            {
+                                <tr>
+                                    <td>@item.ServiceName</td>
+                                    <td>@item.Quantity <span class="badge badge-pill badge-info ml-1">@item.UomName</span></td>
+                                    <td>@item.Price.ToString("##,##") <span class="badge badge-pill badge-info ml-1">@item.CurrencyName</span></td>
+                                    <td>@item.DiscAmt.ToString("##,##")</td>
+                                    <td>@item.BeforeTax.ToString("##,##")</td>
+                                    <td>@item.TaxAmount.ToString("##,##")</td>
+                                    <td>@item.Total.ToString("##,##")</td>
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-6">
+            </div>
+            <!-- /.col -->
+            <div class="col-6">
+                <p class="lead">Amount Summary</p>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th style="width:50%">SubTotal:</th>
+                            <td>@Model.ServiceOrder.CurrencyName @Model.SubTotal.ToString("##,##")</td>
+                        </tr>
+                        @{
+                            if (@Model.DiscAmt > 0)
+                            {
+                                <tr>
+                                    <th>Disc Amount:</th>
+                                    <td>@Model.ServiceOrder.CurrencyName @Model.DiscAmt.ToString("##,##")</td>
+                                </tr>
+
+                            }
+                        }
+                        <tr>
+                            <th>Before Tax:</th>
+                            <td>@Model.ServiceOrder.CurrencyName @Model.BeforeTax.ToString("##,##")</td>
+                        </tr>
+                        <tr>
+                            <th>Tax Amount:</th>
+                            <td>@Model.ServiceOrder.CurrencyName @Model.TaxAmount.ToString("##,##")</td>
+                        </tr>
+                        <tr>
+                            <th>Total:</th>
+                            <td>@Model.ServiceOrder.CurrencyName @Model.Total.ToString("##,##")</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+

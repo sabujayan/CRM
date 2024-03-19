@@ -1,0 +1,36 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.NumberSequence.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Number Sequence"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Number Sequence</h3>
+            <p>
+                Number sequence is a mechanism to provide unique running number on each transaction. The number is user friendly that follow certain format.
+            </p>
+            <p>
+                This module provide feature to update number sequence suffix.
+            </p>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Suffix</b>. Short word to classify each number sequence. Usually module name abbreviation or other words that can be used to identify the module.</li>
+                <li><b>Module</b>. Module name that use the number sequence.</li>
+                <li><b>Next Number</b>. Automatic running number that make the number sequence very unique.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

@@ -1,0 +1,131 @@
+﻿@page "{id:Guid}"
+@model Indo.Web.Pages.VendorDebitNote.DetailModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = $"{l["Menu:FinanceTransactionVendorDebitNote"].Value} {Model.VendorDebitNote.Number}";
+}
+@section scripts
+{
+    <abp-script src="/Pages/VendorDebitNote/Detail.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@Model.VendorDebitNote.Number</abp-card-title>
+                <input type="hidden" id="hfVendorDebitNoteId" asp-for="VendorDebitNote.Id" />
+                <input type="hidden" id="hfVendorDebitNoteNumber" asp-for="VendorDebitNote.Number" />
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <div class="card-block">
+            <div class="row invoive-info">
+                <div class="col-md-4 col-xs-12 invoice-client-info">
+                    <h6>Client Information :</h6>
+                    <h6 class="m-0">@Model.VendorDebitNote.VendorName</h6>
+                    <p class="m-0 m-t-10">@Model.Vendor.Street, @Model.Vendor.City, @Model.Vendor.State. @Model.Vendor.ZipCode</p>
+                    <p class="m-0">@Model.Vendor.Phone</p>
+                    <p><a class="text-secondary" href="mailto:@Model.Vendor.Email" target="_top">@Model.Vendor.Email</a></p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h6>DebitNote Information :</h6>
+                    <table class="table table-responsive invoice-table invoice-order table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>Debit Note Date :</th>
+                                <td>@Model.VendorDebitNote.DebitNoteDate.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th>Bill Reference :</th>
+                                <td>@Model.VendorDebitNote.VendorBillNumber</td>
+                            </tr>
+                            <tr>
+                                <th>Status :</th>
+                                <td>
+                                    <span class="label label-warning">@Model.VendorDebitNote.Status</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h6 class="m-b-20">DebitNote Number <span>#@Model.VendorDebitNote.Number</span></h6>
+                    <h6 class="text-uppercase text-primary">
+                        Total Due :
+                        <span>@Model.VendorDebitNote.CurrencyName <label id="lblTotalTop"></label></span>
+                    </h6>
+                    <div id="qrcode"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    @if (Model.VendorDebitNote.Status != Indo.VendorDebitNotes.VendorDebitNoteStatus.Draft)
+                    {
+                        <i>* Un-editable, only Draft document is editable.</i>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-left">
+                <a type="button" href='~/VendorDebitNote' class="btn btn-secondary">@l["Menu:FinanceTransactionVendorDebitNote"]</a>
+            </div>
+            <div class="col-sm-6 text-right">
+                <abp-button id="NewVendorDebitNoteDetailButton"
+                            text="@l["New"].Value"
+                            icon="plus"
+                            button-type="Primary"
+                            disabled="@(Model.VendorDebitNote.Status != Indo.VendorDebitNotes.VendorDebitNoteStatus.Draft)" />
+            </div>
+        </div>
+        <div class="row m-b-20">
+            <div class="col-sm-12">
+                <abp-table striped-rows="true" id="VendorDebitNoteDetailsTable"></abp-table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-responsive invoice-table invoice-total">
+                    <tbody>
+                        <tr>
+                            <th>SubTotal :</th>
+                            <td>@Model.VendorDebitNote.CurrencyName <label id="lblSubTotalBottom"></label></td>
+                        </tr>
+                        <tr>
+                            <th>Discount Amount :</th>
+                            <td>@Model.VendorDebitNote.CurrencyName <label id="lblDiscAmtBottom"></label></td>
+                        </tr>
+                        <tr>
+                            <th>Before Tax :</th>
+                            <td>@Model.VendorDebitNote.CurrencyName <label id="lblBeforeTaxBottom"></label></td>
+                        </tr>
+                        <tr>
+                            <th>Tax Amount :</th>
+                            <td>@Model.VendorDebitNote.CurrencyName <label id="lblTaxAmountBottom"></label></td>
+                        </tr>
+                        <tr class="text-info">
+                            <td>
+                                <hr />
+                                <h5 class="text-primary m-r-10">Total :</h5>
+                            </td>
+                            <td>
+                                <hr />
+                                <h5 class="text-primary">@Model.VendorDebitNote.CurrencyName <label id="lblTotalBottom"></label></h5>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="/VendorDebitNote/PrintDebitNote/@Model.VendorDebitNote.Id" rel="noopener" target="_blank" class="btn btn-secondary"><i class="fas fa-print"></i> Print Debit Note</a>
+            </div>
+        </div>
+    </abp-card-body>
+</abp-card>

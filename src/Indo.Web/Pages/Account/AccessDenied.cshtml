@@ -1,0 +1,35 @@
+﻿@page
+@model Volo.Abp.Account.Web.Pages.Account.AccessDeniedModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.Account.Localization
+@inject IHtmlLocalizer<AccountResource> L
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@inject IThemeManager ThemeManager
+@{ Layout = ThemeManager.CurrentTheme.GetEmptyLayout(); }
+@section styles {
+}
+
+<div class="auth-wrapper aut-bg-img-side cotainer-fiuid align-items-stretch">
+    <div class="row align-items-center w-100 align-items-stretch bg-white">
+        <div class="d-none d-lg-flex col-lg-8 aut-bg-img align-items-center d-flex justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-white mb-5">@L["AccessDenied"]</h1>
+                <p class="text-white">CRM PRO system access denied page. Please login first to gain access.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 align-items-stret h-100 align-items-center d-flex justify-content-center">
+            <div class=" auth-content text-center">
+                <div class="mb-4">
+                    <i class="feather icon-mail auth-icon"></i>
+                </div>
+                <h3 class="mb-4">@L["AccessDenied"]</h3>
+                <form method="post" class="mt-4">
+                    <p>@L["AccessDeniedMessage"]</p>
+                    <a abp-button="Primary" asp-page="./Login" asp-all-route-data="@(new Dictionary<string, string> {{"returnUrl", Model.ReturnUrl}, {"returnUrlHash", Model.ReturnUrlHash}})">&larr; @L["BackToLogin"]</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

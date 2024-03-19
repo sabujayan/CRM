@@ -1,0 +1,59 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.ImportantDate.UpdateModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+<form asp-page="/ImportantDate/Update">
+    <abp-modal>
+        <abp-modal-header title="@l["Update"].Value @l["Menu:CustomerManagementTransactionImportantDate"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="ImportantDate.Id"></abp-input>
+                        <abp-input asp-for="ImportantDate.Name"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="ImportantDate.Description"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-select asp-for="ImportantDate.CustomerId"></abp-select>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="ImportantDate.Location"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <div class="form-group">
+                            <label asp-for="ImportantDate.StartTime"></label>
+                            <span>*</span>
+                            <input asp-for="ImportantDate.StartTime" />
+                            <span asp-validation-for="ImportantDate.StartTime"></span>
+                        </div>
+                    </abp-column>
+                    <abp-column>
+                        <div class="form-group">
+                            <label asp-for="ImportantDate.EndTime"></label>
+                            <span>*</span>
+                            <input asp-for="ImportantDate.EndTime" />
+                            <span asp-validation-for="ImportantDate.EndTime"></span>
+                        </div>
+                    </abp-column>
+                </abp-row>
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

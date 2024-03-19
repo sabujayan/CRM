@@ -1,0 +1,42 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.ImportantDate.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Important Date"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Important Date</h3>
+            <p>
+                Important Date is a date that is important to remember related to customer.
+            </p>
+            <p>
+                This module provide feature to manage important dates data.
+            </p>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Add</b>. Show modal screen to add new data.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data.</li>
+                <li><b>Delete</b>. Show modal screen to delete selected data.</li>
+                <li><b>Calendar View</b>. Manage important dates using calendar view suite.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Name</b>. Name of important date.</li>
+                <li><b>Description</b>. Additional information regarding the important date.</li>
+                <li><b>Location</b>. Place where the important date took place.</li>
+                <li><b>StartTime</b>. When the important date is starting.</li>
+                <li><b>EndTime</b>. When the important date should be ending.</li>
+                <li><b>Customer</b>. Customer which its important date want to recorded.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

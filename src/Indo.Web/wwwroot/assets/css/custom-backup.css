@@ -1,0 +1,82 @@
+.desig_filter {
+    background-color: #F5F8FA;
+    border-color: #F5F8FA;
+    color: #5E6278;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    padding: 0.75rem 3rem 0.75rem 1rem;
+}
+
+.desig_filter textarea {
+    font-family: Poppins, Helvetica, "sans-serif" !important;
+}
+
+.cus-border {
+    border: 1px dashed #E4E6EF;
+    border-radius: 0.475rem;
+}
+
+.badge-l {
+    font-size: 13px;
+}
+
+.developer-list-tab {
+    flex-direction: column;
+}
+
+.developer-list-tab>li>a {
+    margin: 0 !important;
+}
+
+.developer-grid {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.d-g-item {
+    width: calc(100%/6);
+}
+
+.d-g-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.developer-grid .image-input {
+    transition: 0.5s;
+}
+
+.developer-grid>div>a:hover .image-input {
+    transform: scale(1.1);
+}
+
+.nav-line-tabs.developer-list-tab .nav-item .nav-link.active,
+.nav-line-tabs.nav-line-tabs-2x.developer-list-tab .nav-item .nav-link:hover:not(.disabled),
+.nav-line-tabs.developer-list-tab {
+    border: none;
+}
+
+.nav-line-tabs.nav-line-tabs-2x.developer-list-tab .nav-item .nav-link {
+    transition: 0.5s;
+    border: none;
+}
+
+.nav-line-tabs.nav-line-tabs-2x.developer-list-tab .nav-item .nav-link:hover:not(.disabled) {
+    background-color: #F5F8FA;
+    padding-left: 20px;
+    transition: 0.5s;
+}
+
+@media (max-width: 1200px) {
+    .d-g-item {
+        width: calc(100%/4);
+    }
+}
+
+@media (max-width: 575px) {
+    .d-g-item {
+        width: calc(100%/2);
+    }
+}

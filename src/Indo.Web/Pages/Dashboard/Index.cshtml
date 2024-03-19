@@ -1,0 +1,327 @@
+﻿@page
+@using Indo.ProjectOrders
+@inject ProjectOrderAppService projectOrderAppService
+@model Indo.Web.Pages.DashboardMain.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:DashboardCrm"];
+    var Stage1 = l["Enum:CustomerStage:1"];
+    var Stage2 = l["Enum:CustomerStage:2"];
+    var Stage3 = l["Enum:CustomerStage:3"];
+}
+@section scripts {
+    <!-- amchart js -->
+    <script src="~/themes/plugins/amchart/js/amcharts.js"></script>
+    <script src="~/themes/plugins/amchart/js/gauge.js"></script>
+    <script src="~/themes/plugins/amchart/js/serial.js"></script>
+    <script src="~/themes/plugins/amchart/js/light.js"></script>
+    <script src="~/themes/plugins/amchart/js/pie.min.js"></script>
+    <script src="~/themes/plugins/amchart/js/ammap.min.js"></script>
+    <script src="~/themes/plugins/amchart/js/usaLow.js"></script>
+    <script src="~/themes/plugins/amchart/js/radar.js"></script>
+    <script src="~/themes/plugins/amchart/js/worldLow.js"></script>
+    <!-- dashboard-custom js -->
+    <abp-script src="/Pages/Dashboard/Index.js" />
+}
+
+<!-- [ Main Content ] start -->
+<div class="row">
+    <div class="col-md-6 col-xl-4">
+        <div class="card theme-bg bitcoin-wallet">
+            <div class="card-block">
+                <h5 class="text-white mb-2">@Stage1</h5>
+                <h2 class="text-white mb-2 f-w-300">@Model.Dashboard.CountStage1</h2>
+                <span class="text-white d-block">Lead</span>
+                <i class="fas fa-user-friends f-70 text-white"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-4">
+        <div class="card theme-bg2 bitcoin-wallet">
+            <div class="card-block">
+                <h5 class="text-white mb-2">@Stage2</h5>
+                <h2 class="text-white mb-2 f-w-300">@Model.Dashboard.CountStage2</h2>
+                <span class="text-white d-block">Lead</span>
+                <i class="fas fa-user-friends f-70 text-white"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-4">
+        <div class="card bg-c-blue bitcoin-wallet">
+            <div class="card-block">
+                <h5 class="text-white mb-2">@Stage3</h5>
+                <h2 class="text-white mb-2 f-w-300">@Model.Dashboard.CountStage3</h2>
+                <span class="text-white d-block">Lead</span>
+                <i class="fas fa-user-friends f-70 text-white"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!-- [ online-order section ] start -->
+    <div class="col-md-6 col-xl-4">
+        <div class="card Online-Order">
+            <div class="card-block">
+                <h5>Project Orders</h5>
+                <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">Confirm Orders<span class="float-right f-18 text-c-green">@Model.Dashboard.ProjectOrderConfirm / @Model.Dashboard.ProjectOrderTotal</span></h6>
+                <div class="progress mt-3">
+                    <div class="progress-bar progress-c-theme" role="progressbar" style="width:@Model.Dashboard.ProjectOrderConfirmProgressString;height:6px;" aria-valuenow="@Model.Dashboard.ProjectOrderConfirmProgress" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="text-muted mt-2 d-block"></span>
+                <label class="label theme-bg text-white f-14 f-w-400 float-right">@Model.Dashboard.ProjectOrderConfirmProgressString Confirm</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-4">
+        <div class="card Online-Order">
+            <div class="card-block">
+                <h5>Sales Orders</h5>
+                <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">Confirm Orders<span class="float-right f-18 text-c-purple">@Model.Dashboard.SalesOrderConfirm / @Model.Dashboard.SalesOrderTotal</span></h6>
+                <div class="progress mt-3">
+                    <div class="progress-bar progress-c-theme2" role="progressbar" style="width:@Model.Dashboard.SalesOrderConfirmProgressString;height:6px;" aria-valuenow="@Model.Dashboard.SalesOrderConfirmProgress" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="text-muted mt-2 d-block"></span>
+                <label class="label theme-bg2 text-white f-14 f-w-400 float-right">@Model.Dashboard.SalesOrderConfirmProgressString Confirm</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-4">
+        <div class="card Online-Order">
+            <div class="card-block">
+                <h5>Service Orders</h5>
+                <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">Confirm Orders<span class="float-right f-18 text-c-blue">@Model.Dashboard.ServiceOrderConfirm / @Model.Dashboard.ServiceOrderTotal</span></h6>
+                <div class="progress mt-3">
+                    <div class="progress-bar progress-c-blue" role="progressbar" style="width:@Model.Dashboard.ServiceOrderConfirmProgressString;height:6px;" aria-valuenow="@Model.Dashboard.ServiceOrderConfirmProgress" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="text-muted mt-2 d-block"></span>
+                <label class="label bg-c-blue text-white f-14 f-w-400 float-right">@Model.Dashboard.ServiceOrderConfirmProgressString Confirm</label>
+            </div>
+        </div>
+    </div>
+    <!-- [ online-order section ] end -->
+    <!-- [ yearly summary chart ] start -->
+    <div class="col-xl-8 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Confirm Order vs Cancel Order</h5>
+                <div class="card-header-right">
+                    <div class="btn-group card-option">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="feather icon-more-horizontal"></i>
+                        </button>
+                        <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                            <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                            <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                            <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                            <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block">
+                <div class="row pb-3">
+                    <div class="col-md-6 col-6 text-center m-b-10">
+                        <h3 class="f-w-300">@Model.Dashboard.MonthlyEarnings.Sum(x => x.AmountConfirm).ToString("##,##")</h3>
+                        <span>Confirm Order</span>
+                    </div>
+                    <div class="col-md-6 col-6 text-center m-b-10">
+                        <h3 class="f-w-300">@Model.Dashboard.MonthlyEarnings.Sum(x => x.AmountCancelled).ToString("##,##")</h3>
+                        <span>Cancel Order</span>
+                    </div>
+                </div>
+                <div id="bar-chart3" class="bar-chart3" style="height:270px;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- [ yearly summary chart ] end -->
+    <!-- [ earning-day section ] start -->
+    <div class="col-md-6 col-xl-4">
+        <div class="card theme-bg earning-date">
+            <div class="card-header borderless">
+                <h5 class="text-white">Confirmed Earnings (@Model.Dashboard.CurrencyName)</h5>
+            </div>
+            <div class="card-block">
+                <div class="bd-example bd-example-tabs">
+                    <div class="tab-content" id="tabContent-pills">
+                        @{
+                            var index = 0;
+                            var amountBefore = 0f;
+                            foreach (var item in Model.Dashboard.MonthlyEarnings)
+                            {
+                                var icon = amountBefore > item.Amount ? "icon-arrow-down" : "icon-arrow-up";
+                                if (index == 0)
+                                {
+                                    <div class="tab-pane fade show active" id="earnings-@item.MonthName" role="tabpanel" aria-labelledby="pills-earnings-@item.MonthName">
+                                        <h2 class="text-white mb-3 f-w-300">@item.Amount.ToString("##,##")<i class="feather @icon"></i></h2>
+                                        <span class="text-white mb-4 d-block">TOTAL CONFIRMED EARNINGS</span>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="tab-pane fade" id="earnings-@item.MonthName" role="tabpanel" aria-labelledby="pills-earnings-@item.MonthName">
+                                        <h2 class="text-white mb-3 f-w-300">@item.Amount.ToString("##,##")<i class="feather @icon"></i></h2>
+                                        <span class="text-white mb-4 d-block">TOTALL CONFIRMED EARNINGS</span>
+                                    </div>
+
+                                }
+                                index++;
+                                amountBefore = item.Amount;
+                            }
+                        }
+                    </div>
+                    <ul class="nav nav-pills align-items-center justify-content-center" id="pills-tab" role="tablist">
+                        @{
+                            var index2 = 0;
+                            foreach (var item in Model.Dashboard.MonthlyEarnings)
+                            {
+                                if (index2 == 0)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="pills-earnings-@item.MonthName" data-toggle="pill" href="#earnings-@item.MonthName" role="tab" aria-controls="earnings-@item.MonthName" aria-selected="true">@item.MonthName</a>
+                                    </li>
+
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="pills-earnings-@item.MonthName" data-toggle="pill" href="#earnings-@item.MonthName" role="tab" aria-controls="earnings-@item.MonthName" aria-selected="false">@item.MonthName</a>
+                                    </li>
+                                }
+                                index2++;
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card theme-bg2">
+            <div class="card-block">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-auto">
+                        <img src="~/themes/images/widget/shape5.png" alt="activity-user">
+                    </div>
+                    <div class="col">
+                        <h2 class="text-white f-w-300">@Model.Dashboard.OrderTotal</h2>
+                        <h5 class="text-white">Total Count Order</h5>
+                        <h5 class="text-white">(Project + Sales + Service)</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [earning-day section] end -->
+    <!-- [ full width-table ] start -->
+    <div class="col-xl-8 col-md-6">
+        <div class="card code-table">
+            <div class="card-header">
+                <h5>Last Five Projects</h5>
+                <div class="card-header-right">
+                    <div class="btn-group card-option">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="feather icon-more-horizontal"></i>
+                        </button>
+                        <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                            <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                            <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                            <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                            <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-block pb-0">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Order Number</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th class="text-right">Ratings</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Dashboard.LastFiveProjectOrders)
+                            {
+                                <tr>
+                                    <td>
+                                        <h6 class="mb-1"> <a href="/ProjectOrder/Detail/@item.Id" target="_blank">@item.Number</a> </h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="m-b-0">@((await projectOrderAppService.GetSummaryTotalAsync(item.Id)).ToString("##,##.00"))</h6>
+                                    </td>
+                                    <td>
+                                        @{
+                                            var status = (int)item.Status;
+                                            if (status == 1)
+                                            {
+                                                <a href="#!" class="label theme-bg f-12 text-white">Draft</a>
+                                            }
+                                            if (status == 2)
+                                            {
+                                                <a href="#!" class="label theme-bg f-12 text-white">Confirm</a>
+                                            }
+                                            if (status == 3)
+                                            {
+                                                <a href="#!" class="label theme-bg2 f-12 text-white">Cancelled</a>
+                                            }
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        @{
+                                            var rating = (int)item.Rating;
+                                            for (int i = 0; i < rating; i++)
+                                            {
+                                                <a href="#!"><i class="fa fa-star f-18 text-c-yellow"></i></a>
+                                            }
+                                            for (int i = 0; i < 5 - rating; i++)
+                                            {
+                                                <a href="#!"><i class="fa fa-star f-18 text-black-50"></i></a>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ full width-table ] end -->
+    <!-- [ earning chart ] start -->
+    <div class="col-xl-4 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Confirmed Earnings</h5>
+                <span class="d-block pt-2">Total Amount per Month</span>
+                <div class="card-header-right">
+                    <div class="btn-group card-option">
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="feather icon-more-horizontal"></i>
+                        </button>
+                        <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                            <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                            <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                            <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                            <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block">
+                <div class="earning-price mb-1">
+                    <h3 class="m-0 f-w-300">Total: @Model.Dashboard.MonthlyEarnings.Sum(x => x.Amount).ToString("##,##")</h3>
+                </div>
+                <div id="Widget-line-chart1" class="WidgetlineChart " style="height:245px;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- [ earning chart ] end -->
+</div>
+<!-- [ Main Content ] end -->

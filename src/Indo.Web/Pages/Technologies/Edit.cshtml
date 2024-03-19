@@ -1,0 +1,94 @@
+﻿@page
+@model Indo.Web.Pages.Technologies.EditModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:Technology"];
+}
+@section scripts{
+    <abp-script src="/Pages/Technologies/Edit.js" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}
+
+
+
+@section styles{
+    <abp-style src="/assets/plugins/custom/datatables/datatables.bundle.css" />
+    <abp-style src="/assets/plugins/global/plugins.bundle.css" />
+    <abp-style src="/assets/css/style.bundle.css" />
+    <abp-style src="/Pages/Technologies/Index.css" />
+}
+    <form id="EditTechnologyForm" method="post" action="">
+    <abp-container>
+        <div class="post d-flex flex-column-fluid" id="kt_post">
+            <!--begin::Container-->
+            <div id="kt_content_container" class="container-fluid">
+                <!--begin::Contact-->
+                <div class="card">
+                    <!--begin::Body-->
+                    <div class="card-body p-lg-17">
+                        <!--begin::Row-->
+                        <div class="row mb-3">
+
+                                <h1 class="fw-bolder text-dark mb-9">Edit Technology</h1>
+                                <div class="row mb-5">
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="tech.Name">Name</label><span class="star"> * </span>
+                                              <input type="hidden" id="hidEtechd" asp-for="tech.Id" />
+                                            <input id="txtEditName" name="tech.Name" class="addValidation form-control " value="@Model.tech.Name" placeholder="Technology Name" type="text" />
+                                        </div>
+                                        <abp-input asp-for="tech.Id"></abp-input>
+                                        <div id="nameError">Technology Name field is required.</div>
+                                        <div id="nameValidation">Technology Name field should only contain [a-zA-Z/#+-.* 0-9].</div>
+                                    </div>
+
+
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                        <label for="Project_ClientsId">Belongs To</label>
+                                            <input type="hidden" id="hidparentid" asp-for="tech.ParentId" />
+                                            <input type="hidden" id="hidparentstatus" asp-for="tech.ParentStatus" />
+                                        <select class="custom-select form-control valid TechParentId" data-val="true" id="Tech_ParentId" name="tech.ParentId" aria-describedby="Project_ClientsId-error" aria-invalid="false">
+                                            <option value="" selected="selected">--Select Parent Technology--</option>
+                                            @{
+                                                foreach (var item in Model.ParentTechnologies)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="Project.ClientsId" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-5 align-items-center">
+                                <div class="col-md-12 fv-row">
+                                    <abp-input asp-for="tech.Description"></abp-input>
+
+
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <a href="/Technologies" class="btn-secondary btn">
+                                        @l["Button:Cancel"]
+                                    </a>
+                                    <button class="btn-primary btn" data-busy-text="Saving..." id="btnSubmit" type="submit">
+                                        <span class="indicator-label">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </abp-container>
+</form>

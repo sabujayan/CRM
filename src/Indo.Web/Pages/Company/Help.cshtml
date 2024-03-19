@@ -1,0 +1,42 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Company.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Company"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Company</h3>
+            <p>
+                Company is an organization who own the transaction that recorded using this system.
+            </p>
+            <p>
+                This module provide feature to update the company essential data.
+            </p>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Name</b>. Official company name.</li>
+                <li><b>Street</b>. Company street address.</li>
+                <li><b>City</b>. Company city.</li>
+                <li><b>State</b>. Company state.</li>
+                <li><b>ZipCode</b>. Company zipcode / postal code.</li>
+                <li><b>Phone</b>. Company phone number.</li>
+                <li><b>Email</b>. Company email address.</li>
+                <li><b>Warehouse</b>. Default warehouse selected on transaction if not provided.</li>
+                <li><b>Currency</b>. Default currency used throughout all transaction.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

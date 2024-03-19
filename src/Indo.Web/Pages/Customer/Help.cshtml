@@ -1,0 +1,42 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Customer.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Customer"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Customer</h3>
+            <p>
+                Customer is third pary that can be a person or an organization. Customer is a party where they buy product and service from us.
+            </p>
+            <p>
+                This module provide feature to manage customers data.
+            </p>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Add</b>. Show modal screen to add new data.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data.</li>
+                <li><b>Delete</b>. Show modal screen to delete selected data. Data that already used on transaction can not deleted.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Name</b>. Customer name.</li>
+                <li><b>Street</b>. Customer street address location.</li>
+                <li><b>City</b>. Customer city address location.</li>
+                <li><b>State</b>. Customer state address location.</li>
+                <li><b>ZipCode</b>. Customer zipcode / postal code.</li>
+                <li><b>Phone</b>. Customer phone number.</li>
+                <li><b>Email</b>. Customer email address.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

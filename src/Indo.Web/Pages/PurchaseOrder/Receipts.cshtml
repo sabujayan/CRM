@@ -1,0 +1,33 @@
+﻿@page "{id:Guid}"
+@model Indo.Web.Pages.PurchaseOrder.ReceiptsModel
+@{
+}
+@section styles
+{
+    <link rel="stylesheet" href="~/plugins/data-tables/css/buttons.dataTables.min.css">
+}
+@section scripts
+{
+    <script src="~/plugins/data-tables/js/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/data-tables/js/buttons.html5.min.js"></script>
+    <script src="~/plugins/data-tables/js/jszip.min.js"></script>
+    <script src="~/plugins/data-tables/js/pdfmake.min.js"></script>
+    <script src="~/plugins/data-tables/js/vfs_fonts.js"></script>
+    <abp-script src="/Pages/PurchaseOrder/Receipts.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>Purchase Receipts</abp-card-title>
+                <input type="hidden" id="hfPurchaseOrderId" asp-for="PurchaseOrderId" />
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <a type="button" href='javascript:history.go(-1)' class="btn btn-secondary">Back</a>
+        <abp-table striped-rows="true" id="PurchaseReceiptsTable"></abp-table>
+    </abp-card-body>
+</abp-card>

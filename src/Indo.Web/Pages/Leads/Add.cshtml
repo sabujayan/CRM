@@ -1,0 +1,303 @@
+﻿@page
+@model Indo.Web.Pages.Leads.AddModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Leads"];
+}
+@section scripts{
+    <abp-script src="/Pages/Leads/Add.js" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+}
+@section styles{
+    @*<abp-style src="/assets/plugins/custom/datatables/datatables.bundle.css" />
+    <abp-style src="/assets/plugins/global/plugins.bundle.css" />*@
+    <abp-style src="/assets/css/style.bundle.css" />
+    <abp-style src="/Pages/Leads/Leads.css" />
+}
+
+<abp-container>
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <!--begin::Container-->
+        <div id="kt_content_container" class="container-fluid">
+            <!--profile image-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>Lead Image</h2>
+                            <hr class="my-4">
+
+                            <div class="lnPhoto">
+                                <div class="LnuploadPhoto">
+                                    <div id="imgLinkdiv" class="dIB cameraIcon"></div>
+                                </div>
+                                <div id="imgContainer">
+                                    <img id="Leads_photo" src="https://static.zohocdn.com/crm/images/user_profile_d6908a7_.svg" alt="image" class="dvPhotoShadow">
+                                    <input type="file" name="myfile" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end profile image-->
+            <!--START OF LEAD INFORMATION-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>
+                                Lead Information
+                            </h2>
+                            <hr class="my-4">
+                            <div class="row mb-2">
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                        <label for="Leads_LeadOwner">Lead Owner</label>
+                                        <input id="txtLeadOwner" name="Leads.leadOwner" class="addValidation form-control " placeholder="Lead Owner" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                        <label for="Leads_Company">Company</label><span class="star"> * </span>
+                                        <input id="txtCompany" name="Leads.Company" class="addValidation form-control" placeholder="Company" type="text" />
+                                    </div>
+                                    <div id="companyError">The Company field is required.</div>
+                                    <div id="companyValidation">Please provide a valid Company.</div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                        <label for="Leads_FirstName">First Name</label><span class="star"> * </span>
+                                        <input id="txtFirstName" name="Leads.FirstName" class="addValidation form-control " placeholder="First Name" type="text" />
+                                    </div>
+                                    <div id="firstNameError">The First Name field is required.</div>
+                                    <div id="firstNameValidation">Please provide a valid First Name.</div>
+                                </div>
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                        <label for="Leads_LastName">Last Name</label><span class="star"> * </span>
+                                        <input id="txtLastName" name="Leads.LastName" class="addValidation form-control" placeholder="Last Name" type="text" />
+                                    </div>
+                                    <div id="lastNamerror">The Last Name field is required.</div>
+                                    <div id="lastNamelValidation">Please provide a valid Last Name.</div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_Title">Title</label>
+                                            <input id="txtTitle" name="Leads.Title" class="addValidation form-control " placeholder="Title" type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                        <label for="Leads_Email">Email</label>
+                                        <input id="txtEmail" name="Leads.Email" class="addValidation form-control" placeholder="Email" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_Phone">Phone</label>
+                                            <input id="txtPhone" name="Leads.Phone" class="addValidation form-control " placeholder="Phone" type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_Fax">Fax</label>
+                                            <input id="txtFax" name="Leads.Fax" class="addValidation form-control" placeholder="Fax" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_Mobile">Mobile</label>
+                                            <input id="txtMobile" name="Leads.Mobile" class="addValidation form-control " placeholder="Mobile" type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                        <label for="Leads_Website">Website</label>
+                                        <input id="txtWebsite" name="Leads.Website" class="addValidation form-control" placeholder="Website" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_Lead Source">Lead Source</label>
+                                            <input id="txtLead Source" name="Leads.Lead Source" class="addValidation form-control " placeholder="Lead Source" type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                        <label for="Leads_LeadStatus">Lead Status</label>
+                                        <input id="txtLeadStatus" name="Leads.LeadStatus" class="addValidation form-control" placeholder="Lead Status" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_Industry">Industry</label>
+                                            <input id="txtIndustry" name="Leads.Industry" class="addValidation form-control " placeholder="Industry" type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                        <label for="Leads_NoOfEmployees">No. of Employees</label>
+                                        <input id="txtNoOfEmployees" name="Leads.NoOfEmployees" class="addValidation form-control" placeholder="No. of Employees" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_AnnualRevenue">Annual Revenue</label>
+                                            <input id="txtAnnualRevenue" name="Leads.AnnualRevenue" class="addValidation form-control " placeholder="Annual Revenue" type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_Rating">Rating</label>
+                                            <input id="txtRating" name="Leads.Rating" class="addValidation form-control" placeholder="Rating" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                        <label for="Leads_SkypeID">Skype ID</label>
+                                        <input id="txtSkypeID" name="Leads.SkypeID" class="addValidation form-control " placeholder="Skype ID" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                        <label for="Leads_SecondaryEmail">Secondary Email</label>
+                                        <input id="txtSecondaryEmail" name="Leads.SecondaryEmail" class="addValidation form-control" placeholder="Secondary Email" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                        <label for="Leads_Twitter">Twitter</label>
+                                        <input id="txtTwitter" name="Leads.Twitter" class="addValidation form-control " placeholder="Twitter" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group mt-10">
+                                        <input id="txtEmailOptOut" name="Leads.EmailOptOut" type="checkbox" />
+                                        <label class="mb-0" for="txtEmailOptOut">Email Opt Out</label>                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END OF LEAD INFORMATION-->
+            <!--START OF ADDRESS INFORMATION-->
+            <div class="address-information-section">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="address-heading">Address Information</h2>
+                                <button type="button" class="btn btn-primary btn-add-address">+</button>
+                                <hr class="my-4">
+
+                                <div class="row mb-2">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_Street">Street</label>
+                                            <input id="txtStreet" name="Leads.Street" class="addValidation form-control " placeholder="Street" type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_City">Fax</label>
+                                            <input id="txtCity" name="Leads.City" class="addValidation form-control" placeholder="City" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_State">State</label>
+                                            <input id="txtState" name="Leads.State" class="addValidation form-control " placeholder="State" type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_ZipCode">Zip Code</label>
+                                            <input id="txtZipCode" name="Leads.ZipCode" class="addValidation form-control" placeholder="Zip Code" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Leads_Country">Country</label>
+                                            <input id="txtCountry" name="Leads.Country" class="addValidation form-control " placeholder="Country" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END OF ADDRESS INFORMATION-->
+            <!--START OF DESCRIPTION-->
+            <div class="row description-information-section">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>Description Information</h2>
+                            <hr class="my-4">
+                            <div class="form-group">
+                                <label for="descriptionTextArea">Description:</label>
+                                <textarea id="descriptionTextArea" class="form-control" rows="6" placeholder="Enter your description here"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End OF DESCRIPTION-->
+
+        </div>
+        <!--end::Container-->
+    </div>
+</abp-container>

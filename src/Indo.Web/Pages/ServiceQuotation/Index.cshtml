@@ -1,0 +1,50 @@
+﻿@page
+
+@model Indo.Web.Pages.ServiceQuotation.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:CustomerManagementTransactionServiceQuotation"];
+}
+@section styles{
+    <abp-style src="/Pages/ServiceQuotation/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/ServiceQuotation/Index.js" />
+}
+
+@if (String.IsNullOrEmpty(Model.ViewMode) || Model.ViewMode == "Kanban")
+{
+    <div class="row">
+        <div class="col-12">
+            <div id="toolbar"></div>
+            <div id="Kanban"></div>
+        </div>
+    </div>
+}
+@if (Model.ViewMode == "List")
+{
+    <div class="row">
+        <div class="col-12">
+            @(await Component.InvokeAsync<SpinnerViewComponent>())
+            <div id="Grid"></div>
+        </div>
+    </div>
+
+}
+<script id="cardTemplate" type="text/x-template">
+    <div class='card-template'>
+        <div class='e-card-header'>
+            <div class='e-card-header-caption'>
+                <div class='e-card-header-title e-tooltip-text'>${number}</div>
+            </div>
+        </div>
+        <div class='e-card-content e-tooltip-text'>
+            <div class='e-text'>${customerName}</div>
+            <div class='e-text'>${salesExecutiveName}</div>
+        </div>
+        <div class='e-card-custom-footer'>
+        </div>
+    </div>
+</script>

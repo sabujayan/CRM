@@ -1,0 +1,49 @@
+﻿@using Volo.Abp.UI.Navigation
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContext 
+@model ApplicationMenu
+
+<ul class="nav pcoded-inner-navbar">
+    <li class="nav-item pcoded-menu-caption">
+        <label>Navigation</label>
+    </li>
+    @foreach (var menuItem in Model.Items)
+    {
+        var elementId = string.IsNullOrEmpty(menuItem.ElementId) ? string.Empty : $"id=\"{menuItem.ElementId}\"";
+        var cssClass = string.IsNullOrEmpty(menuItem.CssClass) ? string.Empty : menuItem.CssClass;
+        var disabled = menuItem.IsDisabled ? "disabled" : string.Empty;
+        var url = string.IsNullOrEmpty(menuItem.Url) ? "#" : Url.Content(menuItem.Url);
+        var currentPath = httpContext.HttpContext.Request.Path.Value;
+        var detailIndex = currentPath.IndexOf("/Detail");
+        if (detailIndex > 0)
+        {
+            currentPath = currentPath.Remove(detailIndex);
+        }
+        var active = "";
+        var pcoded_trigger = "";
+        foreach (var item in menuItem.Items)
+        {
+            if (currentPath == Url.Content(item.Url))
+            {
+                active = "active";
+                pcoded_trigger = "pcoded-trigger";
+            }
+            foreach (var subItem in item.Items)
+            {
+                if (currentPath == Url.Content(subItem.Url))
+                {
+                    active = "active";
+                    pcoded_trigger = "pcoded-trigger";
+                }
+            }
+        }
+<li class="nav-item pcoded-hasmenu @active @pcoded_trigger @disabled">
+    <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather @menuItem.Icon"></i></span><span class="pcoded-mtext">@menuItem.DisplayName</span></a>
+    <ul class="pcoded-submenu">
+        @foreach (var childMenuItem in menuItem.Items)
+        {
+@await Html.PartialAsync("~/Themes/Gojazz/Components/Menu/_MenuItem.cshtml", childMenuItem)                }
+    </ul>
+</li>}
+</ul>
+

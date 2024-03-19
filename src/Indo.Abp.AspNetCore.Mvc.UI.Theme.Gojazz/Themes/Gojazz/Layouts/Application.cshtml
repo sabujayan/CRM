@@ -1,0 +1,153 @@
+﻿@using Volo.Abp.AspNetCore.Mvc.UI.Components.LayoutHook
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Indo.Abp.AspNetCore.Mvc.UI.Theme.Gojazz.Bundling
+@using Indo.Abp.AspNetCore.Mvc.UI.Theme.Gojazz.Themes.Gojazz.Components.Header
+@using Indo.Abp.AspNetCore.Mvc.UI.Theme.Gojazz.Themes.Gojazz.Components.MainSidebar
+@using Indo.Abp.AspNetCore.Mvc.UI.Theme.Gojazz.Themes.Gojazz.Components.PageAlerts
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetScripts
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetStyles
+@using Volo.Abp.Localization
+@using Volo.Abp.Ui.Branding
+@inject IBrandingProvider BrandingProvider
+@inject IPageLayout PageLayout
+@{
+    Layout = null;
+
+    var pageTitle = ViewBag.Title == null ? BrandingProvider.AppName : ViewBag.Title; //TODO: Discard to get from Title
+
+    if (PageLayout.Content.Title != null)
+    {
+        if (!string.IsNullOrWhiteSpace(pageTitle))
+        {
+            pageTitle = " | " + pageTitle;
+        }
+
+        pageTitle = PageLayout.Content.Title + pageTitle;
+    }
+
+    var rtl = CultureHelper.IsRtl ? "rtl" : string.Empty;
+}
+
+<!DOCTYPE html>
+
+<html lang="@CultureInfo.CurrentCulture.Name">
+<head>
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.First, StandardLayouts.Application)
+
+
+    <title>@pageTitle</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Inventory Pro - Inventory Management System" />
+    <meta name="keywords" content="inventory, product, warehouse, stock, adjustment, purchase, sales, delivery, receipts, document, calendar" />
+    <meta name="author" content="Indotalent" />
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/themes/images/favicon.ico" type="image/x-icon">
+    <link href="~/themes/syncfusion/css/material.css" rel="stylesheet" />
+    <script src="~/themes/syncfusion/js/ej2.min.js"></script>
+
+    <abp-style-bundle name="@GojazzThemeBundles.Styles.Global" />
+    @await Component.InvokeAsync(typeof(WidgetStylesViewComponent))
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.Last, StandardLayouts.Application)
+
+
+    <link href="~/themes/css/style.css" rel="stylesheet" />
+    @await RenderSectionAsync("styles", false)
+
+</head>
+<body>
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Application)
+
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+    @(await Component.InvokeAsync<MainSidebarViewComponent>())
+    @(await Component.InvokeAsync<HeaderViewComponent>())
+    @(await Component.InvokeAsync<PageAlertsViewComponent>())
+    <!-- [ chat user list ] start -->
+    <section class="header-user-list">
+        <div class="h-list-header">
+            <div class="input-group">
+                <input type="text" id="search-friends" class="form-control" placeholder="Search Friend . . .">
+            </div>
+        </div>
+        <div class="h-list-body">
+            <a href="#!" class="h-close-text"><i class="feather icon-chevrons-right"></i></a>
+            <div class="main-friend-cont scroll-div">
+
+            </div>
+        </div>
+    </section>
+    <!-- [ chat user list ] end -->
+    <!-- [ chat message ] start -->
+    <section class="header-chat">
+        <div class="h-list-header">
+            <a href="#!" class="h-back-user-list"><i class="feather icon-chevron-left"></i></a>
+        </div>
+        <div class="h-list-body">
+            <div class="main-chat-cont scroll-div">
+            </div>
+        </div>
+        <div class="h-list-footer">
+            <div class="input-group">
+                <input type="file" class="chat-attach" style="display:none">
+                <a href="#!" class="input-group-prepend btn btn-success btn-attach">
+                    <i class="feather icon-paperclip"></i>
+                </a>
+                <input type="text" name="h-chat-text" class="form-control h-send-chat" placeholder="Write hear . . ">
+                <button type="submit" class="input-group-append btn-send btn btn-primary">
+                    <i class="feather icon-message-circle"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- [ chat message ] end -->
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+                                <!-- [ fixed-layout ] start -->
+                                <div class="col-sm-12">
+                                    <div class="content-wrapper">
+                                        @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.First, StandardLayouts.Application)
+                                        @RenderBody()
+                                        @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.Last, StandardLayouts.Application)
+                                    </div>
+                                </div>
+                                <!-- [ fixed-layout ] end -->
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+    <abp-script-bundle name="@GojazzThemeBundles.Scripts.Global" />
+    <script src="~/Abp/ApplicationConfigurationScript"></script>
+    <script src="~/Abp/ServiceProxyScript"></script>
+
+    @await Component.InvokeAsync(typeof(WidgetScriptsViewComponent))
+    @await RenderSectionAsync("scripts", false)
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.Last, StandardLayouts.Application)
+
+    <script src="~/themes/js/smooth-scroll.js"></script>
+    <script src="~/themes/js/perfect-scrollbar.js"></script>
+    <script src="~/themes/js/pcoded.js"></script>
+
+</body>
+</html>

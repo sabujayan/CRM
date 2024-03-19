@@ -1,0 +1,13 @@
+﻿body {
+    overflow: hidden; /* Hide scrollbars */
+}
+
+
+.pcoded-content {
+    padding: 2px;
+}
+
+
+.card-template {
+    border-left: 3px solid #1F88E5;
+}

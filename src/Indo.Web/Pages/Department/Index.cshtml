@@ -1,0 +1,20 @@
+﻿@page
+@model Indo.Web.Pages.Department.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:SettingsDepartment"];
+}
+@section styles{
+    <abp-style src="/Pages/Department/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/Department/Index.js" />
+}
+<div class="row">
+    <div class="col-12">
+        @(await Component.InvokeAsync<SpinnerViewComponent>())
+        <div id="Grid"></div>
+    </div>
+</div>

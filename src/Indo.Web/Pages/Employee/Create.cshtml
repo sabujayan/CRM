@@ -1,0 +1,102 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Employee.CreateModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+
+<form asp-page="/Employee/Create">
+    <abp-modal>
+        <abp-modal-header title="@l["New"].Value @l["Menu:SettingsEmployee"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Employee.Name"></abp-input>
+                        <input type="hidden" id="hidskilllist" asp-for="Employee.skilllist" />
+                        <input type="hidden" id="hidclientnamelist" asp-for="Employee.clientnameist" />
+                        <input type="hidden" id="hidprojectnameist" asp-for="Employee.projectnameist" />
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Employee.EmployeeNumber"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Employee.Street"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Employee.City"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="Employee.State"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="Employee.ZipCode"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Employee.Phone"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="Employee.Email"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Employee.Position"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-select asp-for="Employee.DepartmentId"></abp-select>
+                    </abp-column>
+                    <abp-column>
+                        <abp-select asp-for="Employee.EmployeeGroup"></abp-select>
+                    </abp-column>
+                </abp-row>
+
+                <abp-row>
+                    <abp-column>
+                        <abp-select multiple="multiple" asp-for="Employee.SkillId" id="ddlskil"></abp-select>
+                    </abp-column>
+                </abp-row>
+
+                <abp-row>
+                    <abp-column>
+                        <abp-select multiple="multiple" asp-for="Employee.ProjectsId" id="ddlProject"></abp-select>
+                    </abp-column>
+                </abp-row>
+
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Employee.Bandwidth"></abp-input>
+                    </abp-column>
+                </abp-row>
+
+
+
+                <abp-row>
+                    <abp-column>
+                        <abp-select multiple="multiple" asp-for="Employee.ClientsId" id="ddlClient"></abp-select>
+                    </abp-column>
+                </abp-row>
+
+
+
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit" id="btnsave"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

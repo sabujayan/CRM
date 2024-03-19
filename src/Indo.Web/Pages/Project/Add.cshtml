@@ -1,0 +1,141 @@
+﻿@page
+@model Indo.Web.Pages.Project.AddModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:Projects"];
+}
+@section scripts{
+    <abp-script src="/Pages/Project/Add.js" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}
+    @section styles{
+    <abp-style src="/assets/plugins/custom/datatables/datatables.bundle.css" />
+    <abp-style src="/assets/plugins/global/plugins.bundle.css" />
+    <abp-style src="/assets/css/style.bundle.css" />
+    <abp-style src="/Pages/Project/Index.css" />
+}
+    <form id="AddProjectForm" method="post" action="">
+        <abp-container>
+            <div class="post d-flex flex-column-fluid" id="kt_post">
+                <div id="kt_content_container" class="container-fluid">
+                    <div class="card">
+                        <div class="card-body p-lg-17">
+                            <div class="row mb-3">
+                                <h1 class="fw-bolder text-dark mb-9">Add New Project</h1>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-12 fv-row">
+
+                                        <div class="form-group">
+                                            <label for="Project_Name">Project Name</label><span class="star"> * </span>
+                                            <input id="txtProjectName" name="Project.Name" class="addValidation form-control " placeholder="Project Name" type="text" />
+                                        </div>
+                                        <div id="nameError">The Name field is required.</div>
+                                        <div id="nameValidation">The Project Name field should only contain letters and spaces.</div>
+                                        <input type="hidden" id="hidtechnologynameist" asp-for="Project.technologynameist" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5">
+                                    <div class="col-md-6 fv-row">
+                                        <div class="form-group">
+                                            <label for="Project_Clients">Clients</label><span class="star"> * </span>
+                                            <input type="hidden" id="hidClientsId" asp-for="Project.ClientsId" />
+                                        <select id="ddlClient" value="@Model.Clients" placeholder="Client" class="addValidation form-control clientid">
+                                            <option value="null">-Select Client-</option>
+                                            @{
+                                                foreach (var item in Model.Clients)
+                                                {
+                                                    <option value="@item.Value">
+                                                        @item.Text
+                                                    </option>
+                                                }
+                                            }
+                                        </select>
+                                        </div>
+                                        
+                                    </div>
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                        <label for="Project_EstimateHours">Estimate Hours</label><span class="star"> * </span>
+                                        <input id="txtEstimateHours" name="Project.EstimateHours" class="addValidation form-control " placeholder="Estimate Hours" type="text" />
+                                    </div>
+                                    <div id="estimateHoursError" style="display:none">The Estimate Hours field is required.</div>
+                                    <div id="estimateHoursValidation" style="display:none">The Estimate Hours Not in proper format.</div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-5">
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                   <label for="Project_StartDate">Start Date</label>
+                                    <input type="date" class="form-control StartDate" id="txtStartDate"  placeholder="Start Date">
+                                    <input type="hidden" id="hidStartdate" asp-for="Project.StartDate" />
+                                    <div id="startDateValidation">The Project StartDate field should only contain Date.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 fv-row">
+                                    <div class="form-group">
+                                   <label for="Project_EndDate">End Date</label>
+                                    <input type="date" class="form-control EndDate" id="txtEndDate" placeholder="End Date">
+                                     <input type="hidden" id="hidEndDate" asp-for="Project.EndDate" />
+                                    <div id="endDateValidation">The Project EndDate field should only contain Date.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-5 align-items-center">
+                                <div class="col-md-12 fv-row">
+                                    <abp-input asp-for="Project.Notes" placeholder="Notes"></abp-input>
+                                </div>
+                            </div>
+
+                            <div class="row mb-5 align-items-center">
+                                <div class="col-md-12 fv-row">
+                                    <div class="form-group">
+                                    <label>Technology Name List<span class="spTech" id="spTech">&nbsp;*</span></label>
+                                    <div class="form-field-block" id="ddlTechnology">
+                                        <input type="hidden" id="hidTechnologycount" value="@Model.Technologys.Count" name="Model.Technologys.Count" />
+                                        <div class="custom-selects form-control">
+                                            <ul class="custom-selected"></ul>
+                                            <input type="text" id="txtMultilist" class="multi-input" placeholder="Select Technology Name" />
+                                        </div>
+                                        <span class="spNoRecord" id="spRecord">No Record Found</span>
+                                        <ul class="custom-sel-list" id="technologyList">
+                                            @{
+                                                foreach (var item in Model.Technologys)
+                                                {
+                                                    <li value="@item.Value">@item.Text</li>
+                                                }
+                                            }
+                                        </ul>
+                                        <div id="technologyListError" style="display:none">The Technology List field is required.</div>
+                                    </div>
+                                 </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-12">
+                                <div class="col-md-12">
+                                    <a href="/Project" class="btn-secondary btn">
+                                        @l["Button:Cancel"]
+                                    </a>
+                                    <button class="btn-primary btn" data-busy-text="Saving..." id="btnsave" type="submit">
+                                        <span class="indicator-label">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </abp-container>
+</form>
+

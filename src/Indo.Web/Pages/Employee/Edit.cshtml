@@ -1,0 +1,194 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Employee.EditModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:SettingsEmployee"];
+}
+@section styles{
+    <abp-style src="/assets/css/custom.css" />
+    <abp-style src="/assets/plugins/custom/datatables/datatables.bundle.css" />
+    <abp-style src="/assets/plugins/global/plugins.bundle.css" />
+    <abp-style src="/assets/css/style.bundle.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/Employee/Edit.js" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}
+
+<form id="EditEmployeeForm" method="post" action="">
+    <abp-container>
+        <div class="post d-flex flex-column-fluid" id="kt_post">
+            <!--begin::Container-->
+            <div id="kt_content_container" class="container-fluid">
+                <!--begin::Contact-->
+                <div class="card">
+                    <!--begin::Body-->
+                    <div class="card-body p-lg-17">
+                        <!--begin::Row-->
+                        <div class="row mb-3">
+                            <!--begin::Col-->
+                            <!-- <div class="col-md-6 pe-lg-10"> -->
+                            <!--begin::Form-->
+
+                                <h1 class="fw-bolder text-dark mb-9">Edit Employee</h1>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-12 fv-row">
+                                        <abp-input asp-for="Employee.Id"></abp-input>
+                                        <input type="hidden" id="hidECid" asp-for="Employee.Id" />
+                                        <input type="hidden" id="hidEmployeeId" name="Model.Employee.Id" value="@Model.Employee.Id">
+                                        @*<abp-input asp-for="Employee.Name" value="@Model.Employee.Name"></abp-input>*@
+                                        <div class="form-group">
+                                            <label for="Employee_Name">Name</label><span class="star"> * </span>
+                                            <input id="txtEmployeetName" name="Employee.Name" class="addValidation form-control " value="@Model.Employee.Name" placeholder="Employee Name" type="text" />
+                                        </div>
+                                        <div id="nameError">The Name field is required.</div>
+                                        <div id="nameValidation">The Employee Name field should only contain letters and spaces.</div>
+                                        
+                                        <input type="hidden" id="hidskilllist" asp-for="Employee.skilllist" />
+                                        <input type="hidden" id="hidclientnamelist" asp-for="Employee.clientnameist" />
+                                        <input type="hidden" id="hidprojectnameist" asp-for="Employee.projectnameist" />
+                                    </div>
+                                </div>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-6 fv-row">
+                                        <abp-input asp-for="Employee.EmployeeNumber" value="@Model.Employee.EmployeeNumber"></abp-input>
+                                    </div>
+                                    <div class="col-md-6 fv-row">
+                                        <abp-input asp-for="Employee.Street" value="@Model.Employee.Street"></abp-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-6 fv-row">
+                                        <abp-input asp-for="Employee.City" value="@Model.Employee.City"></abp-input>
+                                    </div>
+                                    <div class="col-md-6 fv-row">
+                                        <abp-input asp-for="Employee.State" value="@Model.Employee.State"></abp-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-6 fv-row">
+                                        <abp-input asp-for="Employee.ZipCode" value="@Model.Employee.ZipCode"></abp-input>
+                                    </div>
+                                    <div class="col-md-6 fv-row">
+                                        <abp-input asp-for="Employee.Phone" value="@Model.Employee.Phone"></abp-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-6 fv-row">
+                                        <abp-input asp-for="Employee.Email" value="@Model.Employee.Email"></abp-input>
+                                    </div>
+                                    <div class="col-md-6 fv-row">
+                                        <abp-input asp-for="Employee.Position" value="@Model.Employee.Position"></abp-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-6 fv-row">
+                                        <abp-select asp-for="Employee.DepartmentId" value="@Model.Employee.DepartmentId"></abp-select>
+                                    </div>
+                                    <div class="col-md-6 fv-row">
+                                        <abp-select asp-for="Employee.EmployeeGroup" value="@Model.Employee.EmployeeGroup"></abp-select>
+                                    </div>
+                                </div>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-12 fv-row">
+                                        @*<abp-select  asp-for="Employee.SkillId" asp-items="@Model.Skills" />*@
+                                        <div class="col-md-12 fv-row">
+                                            <span>Skill Name List</span>
+                                            <div class="form-field-block" id="ddlClientSkill">
+                                                <input type="hidden" id="hidprojectcount" value="@Model.Skills.Count" name="Model.Skills.Count" />
+                                                <div class="custom-selects form-control ">
+                                                    <ul onchange="skillName()" class="custom-selected"></ul>
+                                                    <input type="text" class="multi-input" placeholder="Select Skills Name" />
+                                                </div>
+                                                <span class="srpRecord" id="srpRecord">No Record Found</span>
+                                                <ul class="custom-sel-list">
+                                                    @{
+                                                        foreach (var item in Model.Skills)
+                                                        {
+                                                            <li id="@item.Text" value="@item.Value">@item.Text</li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-12 fv-row">
+                                        @*<abp-select  asp-for="Employee.ProjectsId" asp-items="@Model.Projects" />*@
+                                        <div class="col-md-12 fv-row">
+                                            <span>Project Name List</span>
+                                            <div class="form-field-block" id="ddlClientProject">
+                                                <input type="hidden" id="hidprojectcount" value="@Model.Projects.Count" name="Model.Projects.Count" />
+                                                <div class="custom-selects form-control ">
+                                                    <ul onchange="projectName()" id="P_name" class="custom-selected"></ul>
+                                                    <input type="text" class="multi-input" placeholder="Select Project Name" />
+                                                </div>
+                                                <span class="spNoRecord" id="spRecord">No Record Found</span>
+                                                <ul class="custom-sel-list">
+                                                    @{
+                                                        foreach (var item in Model.Projects)
+                                                        {
+                                                            <li value="@item.Value">@item.Text</li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-12 fv-row">
+                                        <abp-input asp-for="Employee.Bandwidth"></abp-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-5 align-items-center">
+                                    <div class="col-md-12 fv-row">
+                                        @* <abp-select asp-for="Employee.ClientsId" asp-items="@Model.Clients" />*@
+                                        <div class="col-md-12 fv-row">
+                                            <span>Client Name List</span>
+                                            <div class="form-field-block" id="ddlClient">
+                                                <input type="hidden" id="hidprojectcount" value="@Model.Clients.Count" name="Model.Clients.Count" />
+                                                <div class="custom-selects form-control ">
+                                                    <ul onchange="clientName()" class="custom-selected"></ul>
+                                                    <input type="text" class="multi-input" placeholder="Select Clients Name" />
+                                                </div>
+                                                <span class="scpRecord" id="scpRecord">No Record Found</span>
+                                                <ul class="custom-sel-list">
+                                                    @{
+                                                        foreach (var item in Model.Clients)
+                                                        {
+                                                            <li value="@item.Value">@item.Text</li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div><div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-12">
+                                    <div class="col-md-12">
+                                        <a href="/Employee" class="btn-secondary btn">
+                                            @l["Button:Cancel"]
+                                        </a>
+                                        <button class="btn-primary btn" data-busy-text="Saving..." id="btnEditsave" type="submit">
+                                            <span class="indicator-label">Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                        </div>
+
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::Contact-->
+            </div>
+            <!--end::Container-->
+        </div>
+    </abp-container>
+</form>

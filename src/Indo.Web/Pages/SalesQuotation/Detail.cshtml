@@ -1,0 +1,131 @@
+﻿@page "{id:Guid}"
+@model Indo.Web.Pages.SalesQuotation.DetailModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = $"{l["Menu:CustomerManagementTransactionSalesQuotation"].Value} {Model.SalesQuotation.Number}";
+}
+@section scripts
+{
+    <abp-script src="/Pages/SalesQuotation/Detail.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@Model.SalesQuotation.Number</abp-card-title>
+                <input type="hidden" id="hfSalesQuotationId" asp-for="SalesQuotation.Id" />
+                <input type="hidden" id="hfSalesQuotationNumber" asp-for="SalesQuotation.Number" />
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <div class="card-block">
+            <div class="row invoive-info">
+                <div class="col-md-4 col-xs-12 invoice-client-info">
+                    <h6>Client Information :</h6>
+                    <h6 class="m-0">@Model.SalesQuotation.CustomerName</h6>
+                    <p class="m-0 m-t-10">@Model.Customer.Street, @Model.Customer.City, @Model.Customer.State. @Model.Customer.ZipCode</p>
+                    <p class="m-0">@Model.Customer.Phone</p>
+                    <p><a class="text-secondary" href="mailto:@Model.Customer.Email" target="_top">@Model.Customer.Email</a></p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h6>Quotation Information :</h6>
+                    <table class="table table-responsive invoice-table invoice-order table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>Date :</th>
+                                <td>@Model.SalesQuotation.QuotationDate.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th>Valid Until :</th>
+                                <td>@Model.SalesQuotation.QuotationValidUntilDate.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th>Status :</th>
+                                <td>
+                                    <span class="label label-warning">@Model.SalesQuotation.Status</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h6 class="m-b-20">Quotation Number <span>#@Model.SalesQuotation.Number</span></h6>
+                    <h6 class="text-uppercase text-primary">
+                        Total Due :
+                        <span>@Model.SalesQuotation.CurrencyName <label id="lblTotalTop"></label></span>
+                    </h6>
+                    <div id="qrcode"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    @if (Model.SalesQuotation.Status != Indo.SalesQuotations.SalesQuotationStatus.Draft)
+                    {
+                        <i>* Un-editable, only Draft document is editable.</i>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-left">
+                <a type="button" href='~/SalesQuotation' class="btn btn-secondary">@l["Menu:CustomerManagementTransactionSalesQuotation"]</a>
+            </div>
+            <div class="col-sm-6 text-right">
+                <abp-button id="NewSalesQuotationDetailButton"
+                            text="@l["New"].Value"
+                            icon="plus"
+                            button-type="Primary"
+                            disabled="@(Model.SalesQuotation.Status != Indo.SalesQuotations.SalesQuotationStatus.Draft)" />
+            </div>
+        </div>
+        <div class="row m-b-20">
+            <div class="col-sm-12">
+                <abp-table striped-rows="true" id="SalesQuotationDetailsTable"></abp-table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-responsive invoice-table invoice-total">
+                    <tbody>
+                        <tr>
+                            <th>SubTotal :</th>
+                            <td>@Model.SalesQuotation.CurrencyName <label id="lblSubTotalBottom"></label></td>
+                        </tr>
+                        <tr>
+                            <th>Discount Amount :</th>
+                            <td>@Model.SalesQuotation.CurrencyName <label id="lblDiscAmtBottom"></label></td>
+                        </tr>
+                        <tr>
+                            <th>Before Tax :</th>
+                            <td>@Model.SalesQuotation.CurrencyName <label id="lblBeforeTaxBottom"></label></td>
+                        </tr>
+                        <tr>
+                            <th>Tax Amount :</th>
+                            <td>@Model.SalesQuotation.CurrencyName <label id="lblTaxAmountBottom"></label></td>
+                        </tr>
+                        <tr class="text-info">
+                            <td>
+                                <hr />
+                                <h5 class="text-primary m-r-10">Total :</h5>
+                            </td>
+                            <td>
+                                <hr />
+                                <h5 class="text-primary">@Model.SalesQuotation.CurrencyName <label id="lblTotalBottom"></label></h5>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="/SalesQuotation/PrintDetail/@Model.SalesQuotation.Id" rel="noopener" target="_blank" class="btn btn-secondary"><i class="fas fa-print"></i> Print @l["Menu:CustomerManagementTransactionSalesQuotation"]</a>
+            </div>
+        </div>
+    </abp-card-body>
+</abp-card>

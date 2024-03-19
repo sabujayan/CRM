@@ -1,0 +1,73 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.Clients.CreateModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    Layout = null;
+}
+<form asp-page="/Clients/Create">
+    <abp-modal>
+        <abp-modal-header title="@l["New"].Value @l["Menu:Client"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-container>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Client.Name"></abp-input>
+                        <input type="hidden" id="hidprojectnameist" asp-for="Client.projectnameist" />
+                    </abp-column>
+
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Client.Email"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="Client.PhoneNumber"></abp-input>
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Client.Address"></abp-input>
+                    </abp-column>
+                </abp-row>
+
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Client.Country"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="Client.State"></abp-input>
+                    </abp-column>
+                </abp-row>
+
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Client.City"></abp-input>
+                    </abp-column>
+                    <abp-column>
+                        <abp-input asp-for="Client.Zip"></abp-input>
+                    </abp-column>
+                </abp-row>
+               
+                <abp-row>
+                    <abp-column>
+                        <abp-input asp-for="Client.Address"></abp-input>
+                    </abp-column>
+                </abp-row>
+
+                 <abp-row>
+                    <abp-column>
+                        <abp-select multiple="multiple" asp-for="Client.ProjectsId" id="ddlClientProject"></abp-select>
+                    </abp-column>
+                </abp-row>
+
+            </abp-container>
+        </abp-modal-body>
+        <abp-modal-footer>
+            <button class="btn-secondary btn" data-dismiss="modal" type="button">@l["Button:Cancel"]</button>
+            <button class="btn-primary btn" data-busy-text="Saving..." type="submit"><i class="fa-check fa"></i> <span>@l["Button:Save"]</span></button>
+        </abp-modal-footer>
+    </abp-modal>
+</form>

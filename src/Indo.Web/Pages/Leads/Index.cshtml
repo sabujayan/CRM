@@ -1,0 +1,114 @@
+﻿@page
+@model Indo.Web.Pages.Leads.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Index"];
+}
+@section styles{
+    <abp-style src="/assets/css/unpkg.com_bootstrap-table@1.22.1_dist_bootstrap-table.min.css" />
+    <abp-style src="/assets/css/unpkg.com_jquery-resizable-columns@0.2.3_dist_jquery.resizableColumns.css" />
+    <abp-style src="/assets/css/style.bundle.css" />
+    <abp-style src="/Pages/Leads/Leads.css" />
+}
+@section scripts{
+    <abp-script src="/assets/js/custom/grid-table/unpkg.com_bootstrap-table@1.22.1_dist_bootstrap-table.min.js" />
+    <abp-script src="/assets/js/custom/grid-table/unpkg.com_bootstrap-table@1.22.1_dist_extensions_resizable_bootstrap-table-resizable.min.js" />
+    <abp-script src="/assets/js/custom/grid-table/unpkg.com_jquery-resizable-columns@0.2.3_dist_jquery.resizableColumns.min.js" />
+    <abp-script src="/Pages/Leads/Index.js" />
+}
+
+
+
+<div class="d-flex flex-column flex-lg-row">
+
+    <div class="flex-lg-row-fluid ms-lg-7 ms-xl-10">
+        <!--begin::Card-->
+    
+        <div class="mb-3 input-box text-right">
+            <a href="/Leads/Add" class="btn btn-primary">Add Project</a>
+        </div>
+        <div class="mb-3 input-box text-right">
+            <a href="/Leads/Edit" class="btn btn-primary">Edit Project</a>
+        </div>
+        <!--end::Content-->
+
+        <div class="sbGrid_table" >
+            <table id="gridResizeTable"
+              data-show-columns="true"
+              data-search="true"
+              data-show-toggle="true"
+              data-pagination="true"
+              @*data-url="json/data1.json"*@
+              data-resizable="true">
+              <thead>
+                <tr>
+                  <th data-field="id" data-sortable="true">ID</th>
+                  <th data-field="name" data-sortable="true">Item Name</th>
+                  <th data-field="price" data-sortable="true">Item Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>
+                          item1 
+                      </td>
+                      <td>
+                          item2 
+                      </td>
+                    <td>
+                        item3
+                    </td>
+                  </tr>
+                   <tr>
+                      <td>
+                          item1 
+                      </td>
+                      <td>
+                          item2 
+                      </td>
+                    <td>
+                        item3
+                    </td>
+                  </tr>
+                   <tr>
+                      <td>
+                          item1 
+                      </td>
+                      <td>
+                          item2 
+                      </td>
+                    <td>
+                        item3
+                    </td>
+                  </tr>
+                    <tr>
+                        <td>
+                            item1
+                        </td>
+                        <td>
+                            item2
+                        </td>
+                        <td>
+                            item3
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            item4
+                        </td>
+                        <td>
+                            item5
+                        </td>
+                        <td>
+                            item6
+                        </td>
+                    </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

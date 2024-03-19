@@ -1,0 +1,75 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model Indo.Web.Pages.StockAdjustment.HelpModel
+@{
+    Layout = null;
+}
+<abp-modal>
+    <abp-modal-header title="About Stock Adjustment"></abp-modal-header>
+    <abp-modal-body>
+        <abp-container>
+            <h3>Stock Adjustment</h3>
+            <p>
+                Stock adjustment is a process to adjust on hand stock by increase or decrease the current on hand stock.
+            </p>
+            <h4>Types of adjustment</h4>
+            <p>
+                There are two types of adjustment:
+            </p>
+            <ul>
+                <li>1. Addition. Which is increase the stock by add inbound transaction from virtual warehouse to selected physical warehouse.</li>
+                <li>2. Deduction. Which is decrease the stock by add outbound transaction from selected physical warehouse to virtual warehouse.</li>
+            </ul>
+            <p>
+                This module provide feature to manage stock adjustment.
+            </p>
+            <h4>Document Status</h4>
+            <ul>
+                <li><b>Draft</b>.</li> Default status for the newly created transaction. Transaction can be update and deleted.
+                <li><b>Confirm</b>.</li> Next status above Draft which is used for confirmed transaction. Transaction can not updated and can not deleted.
+                <li><b>Returned</b>.</li> Default status for returned transaction. Only confirmed transaction can be returned. Transaction can not updated and can not deleted.
+            </ul>
+            <h4>Toolbar Actions</h4>
+            <ul>
+                <li><b>Help</b>. Show help guidance modal screen.</li>
+                <li><b>Excel Export</b>. Export the data on grid to excel.</li>
+                <li><b>Search Box</b>. Search the data on grid.</li>
+                <li><b>Add</b>. Show modal screen to add new data.</li>
+                <li><b>Edit</b>. Show modal screen to update selected data. Only active for draft transaction.</li>
+                <li><b>Delete</b>. Show confirmation dialog to delete selected data. Only active for draft transaction.</li>
+                <li><b>Details</b>. Navigate to detail view page for selected data.</li>
+                <li><b>Confirm Adjustment</b>. Show confirmation dialog to confirm selected data. Only active for draft transaction.</li>
+                <li><b>Return Adjustment</b>. Show confirmation dialog to return selected data. Only active for confirm transaction.</li>
+            </ul>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Number</b>. Autogenerate specific number sequence based on module.</li>
+                <li><b>Description</b>. Record additional description about the adjustment.</li>
+                <li><b>Adjustment Type</b>. Type of adjustment selection: Addition or Deduction.</li>
+                <li><b>Adjustment Date</b>. Date of stock adjustment.</li>
+                <li><b>Warehouse</b>. Lookup to warehouse data master where the stock adjustment took place.</li>
+            </ul>
+            <h3>Stock Adjustment Detail</h3>
+            <p>
+                Stock adjustment detail is a page that show detail view of the stock adjustment. This page provide feature to manage adjusted items. Only draft transaction can be manage for addition, update and deletion.
+            </p>
+            <h4>Button Actions</h4>
+            <ul>
+                <li><b>Plus New Button</b>. Show modal screen to add new data.</li>
+                <li><b>List Button</b>. Navigate back to main grid data.</li>
+                <li><b>Print Button</b>. Navigate to windows print option (save as pdf, or print the detail view).</li>
+            </ul>
+            <h4>Toolbar Actions</h4>
+            <li><b>Edit</b>. Show modal screen to update selected data. Only active for draft transaction.</li>
+            <li><b>Delete</b>. Show confirmation dialog to delete selected data. Only active for draft transaction.</li>
+            <h4>Columns</h4>
+            <ul>
+                <li><b>Product</b>. Detail adjusted items as physical product that lookup to the product master data.</li>
+                <li><b>Quantity</b>. Quantity of the adjustment that will increase/decrease current on hand stock according the adjustment type.</li>
+            </ul>
+        </abp-container>
+    </abp-modal-body>
+    <abp-modal-footer>
+        <button class="btn-secondary btn" data-dismiss="modal" type="button">Close</button>
+    </abp-modal-footer>
+</abp-modal>

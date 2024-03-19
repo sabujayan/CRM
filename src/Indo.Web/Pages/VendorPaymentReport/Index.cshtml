@@ -1,0 +1,20 @@
+﻿@page
+@model Indo.Web.Pages.VendorPaymentReport.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = l["Menu:FinanceReportVendorPayment"];
+}
+@section styles{
+    <abp-style src="/Pages/VendorPaymentReport/Index.css" />
+}
+@section scripts{
+    <abp-script src="/Pages/VendorPaymentReport/Index.js" />
+}
+<div class="row">
+    <div class="col-12">
+        @(await Component.InvokeAsync<SpinnerViewComponent>())
+        <div id="Grid"></div>
+    </div>
+</div>

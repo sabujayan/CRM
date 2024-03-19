@@ -1,0 +1,98 @@
+﻿@page "{id:Guid}"
+@model Indo.Web.Pages.SalesDelivery.DetailModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Indo.Localization
+@inject IHtmlLocalizer<IndoResource> l
+@{
+    ViewBag.Title = $"{l["Menu:SalesTransactionSalesDelivery"].Value} {Model.SalesDelivery.Number}";
+}
+@section scripts
+{
+    <abp-script src="/Pages/SalesDelivery/Detail.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@Model.SalesDelivery.Number</abp-card-title>
+                <input type="hidden" id="hfSalesDeliveryId" asp-for="SalesDelivery.Id" />
+                <input type="hidden" id="hfSalesDeliveryNumber" asp-for="SalesDelivery.Number" />
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <div class="card-block">
+            <div class="row invoive-info">
+                <div class="col-md-4 col-xs-12 invoice-client-info">
+                    <h6>Customer Information :</h6>
+                    <h6 class="m-0">@Model.Customer.Name</h6>
+                    <p class="m-0 m-t-10">@Model.Customer.Street, @Model.Customer.City, @Model.Customer.State. @Model.Customer.ZipCode</p>
+                    <p class="m-0">@Model.Customer.Phone</p>
+                    <p><a class="text-secondary" href="mailto:@Model.Customer.Email" target="_top">@Model.Customer.Email</a></p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h6>Delivery Information :</h6>
+                    <table class="table table-responsive invoice-table invoice-order table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>Date :</th>
+                                <td>@Model.SalesDelivery.DeliveryDate.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th>Order:</th>
+                                <td>@Model.SalesDelivery.SalesOrderNumber</td>
+                            </tr>
+                            <tr>
+                                <th>Status :</th>
+                                <td>
+                                    <span class="label label-warning">@Model.SalesDelivery.Status</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <h6 class="m-b-20">Delivery Number <span>#@Model.SalesDelivery.Number</span></h6>
+                    <div id="qrcode"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    @if (Model.SalesDelivery.Status != Indo.SalesDeliveries.SalesDeliveryStatus.Draft)
+                    {
+                        <i>* Un-editable, only Draft document is editable.</i>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-left">
+                <a type="button" href='~/SalesDelivery' class="btn btn-secondary">@l["Menu:SalesTransactionSalesDelivery"]</a>
+            </div>
+            <div class="col-sm-6 text-right">
+                <abp-button id="NewSalesDeliveryDetailButton"
+                            text="@l["New"].Value"
+                            icon="plus"
+                            button-type="Primary"
+                            disabled="@(Model.SalesDelivery.Status != Indo.SalesDeliveries.SalesDeliveryStatus.Draft)" />
+            </div>
+        </div>
+        <div class="row m-b-20">
+            <div class="col-sm-12">
+                <abp-table striped-rows="true" id="SalesDeliveryDetailsTable"></abp-table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="/SalesDelivery/PrintDetail/@Model.SalesDelivery.Id" rel="noopener" target="_blank" class="btn btn-secondary"><i class="fas fa-print"></i> Print @l["Menu:SalesTransactionSalesDelivery"]</a>
+            </div>
+        </div>
+    </abp-card-body>
+</abp-card>

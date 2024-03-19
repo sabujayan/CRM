@@ -1,0 +1,66 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.Account.Localization
+@model Volo.Abp.Account.Web.Pages.Account.RegisterModel
+@inject IHtmlLocalizer<AccountResource> L
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@inject IThemeManager ThemeManager
+@{
+    Layout = ThemeManager.CurrentTheme.GetEmptyLayout();
+}
+@section styles {
+}
+<div class="auth-wrapper aut-bg-img-side cotainer-fiuid align-items-stretch">
+    <div class="row align-items-center w-100 align-items-stretch bg-white">
+        <div class="d-none d-lg-flex col-lg-8 aut-bg-img align-items-end d-flex justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-white mb-3">@L["Register"]</h1>
+                <p class="text-white mb-5">CRM PRO system register page. Use this page to register your self to the system.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 align-items-end h-100 align-items-center d-flex justify-content-center">
+            <div class=" auth-content text-left">
+                @*<div class="mb-4">
+                    <i class="feather icon-user-plus auth-icon"></i>
+                </div>*@
+                <h3 class="mb-2">@L["Register"]</h3>
+                <p class="mb-4 text-muted">
+                    Create a New Account
+                </p>
+                <form method="post" class="mt-4">
+                    @if (!Model.IsExternalLogin)
+                    {
+                        <div class="form-group mb-3">
+                            <label class="form-label text-dark f-w-600">User Name</label>
+                            <input asp-for="Input.UserName" auto-focus="true" type="text" class="form-control" placeholder="Username"/>    
+                        </div>                     
+                        <div class="form-group mb-3">
+                            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                        </div>
+                    }
+                        <div class="form-group mb-3">
+                        <label class="form-label text-dark f-w-600">Email</label>
+                            <input asp-for="Input.EmailAddress" type="email" class="form-control" placeholder="Email"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <span asp-validation-for="Input.EmailAddress" class="text-danger"></span>
+                        </div>
+
+                    @if (!Model.IsExternalLogin)
+                    {
+                        <div class="form-group mb-3">
+                            <label class="form-label text-dark f-w-600">Password</label>
+                            <input asp-for="Input.Password" type="password" class="form-control" placeholder="password"/>
+                        </div>                     
+                        <div class="form-group mb-4">
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                    }
+                    <button type="submit" class="btn btn-primary w-100 shadow-2 mb-4">@L["Register"]</button>
+                </form>
+                <p class="mb-0 text-muted">@L["AlreadyRegistered"] <a class="text-primary" href="@Url.Page("./Login", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})">@L["Login"]</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
